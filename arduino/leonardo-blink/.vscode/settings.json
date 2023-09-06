@@ -1,0 +1,15 @@
+{
+    "cSpell.ignoreRegExpList": ["\\b[0-9A-Z_]+\\b"],
+    "cmake.generator": "Ninja",
+    "cmake.buildDirectory" : "${workspaceRoot}/build/${buildType}",
+    "cmake.configureEnvironment":
+    {
+        "CMAKE_EXPORT_COMPILE_COMMANDS": "on"
+    },
+    // Настройки проекта.
+    "executable": "${command:cmake.buildDirectory}/${workspaceFolderBasename}.elf",
+    "device": "atmega32u4",
+    "usbdevice": "usb:2341:8036",
+    "comport": "COM43",
+    "combaud": "57600"
+}

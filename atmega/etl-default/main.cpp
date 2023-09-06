@@ -1,0 +1,50 @@
+#include <cstdio>
+#include <util/delay.h>
+#include <util/atomic.h>
+#include <avr/io.h>
+#include "etl/string.h"
+
+extern void USART0Init();
+
+etl::string<32> hello( "Hello from AVR!" );
+
+
+/**
+ * @brief   Выполняет настройку.
+ * 
+ */
+void setup()
+{
+    // Настройка USART0.
+    USART0Init();
+}
+
+
+/**
+ * @brief   Выполняет тело цикла.
+ * 
+ */
+void loop()
+{
+    printf( "%s\n", hello.c_str() );
+
+    _delay_ms( 1000 );
+}
+
+
+/**
+ * @brief   Точка входа.
+ * 
+ */
+int main( void )
+{
+    ATOMIC_BLOCK( ATOMIC_FORCEON )
+    {
+        setup();
+    }
+
+    while (1)
+    {
+        loop();
+    }
+}

@@ -1,0 +1,21 @@
+[submodule "modules/ArduinoCore-avr"]
+	path = modules/ArduinoCore-avr
+	url = https://github.com/arduino/ArduinoCore-avr
+[submodule "modules/avr-cmake"]
+	path = modules/avr-cmake
+	url = https://github.com/ViacheslavMezentsev/avr-cmake
+[submodule "modules/avr-libstdcpp"]
+	path = modules/avr-libstdcpp
+	url = https://github.com/modm-io/avr-libstdcpp
+[submodule "modules/etl"]
+	path = modules/etl
+	url = https://github.com/ETLCPP/etl
+[submodule "modules/Mcucpp"]
+	path = modules/Mcucpp
+	url = https://github.com/KonstantinChizhov/Mcucpp
+[submodule "modules/modm"]
+	path = modules/modm
+	url = https://github.com/modm-io/modm
+[submodule "modules/scmrtos"]
+	path = modules/scmrtos
+	url = https://github.com/scmrtos/scmrtos

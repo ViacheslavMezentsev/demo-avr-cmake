@@ -1,0 +1,19 @@
+{
+  "configurations": [
+    {
+      "name": "Debug (dw-link)",
+      "type": "cppdbg",
+      "request": "launch",
+      "program": "${config:executable}",
+      "args": [],
+      "stopAtEntry": false,
+      "cwd": "${command:cmake.buildDirectory}",
+      "environment": [],
+      "externalConsole": false, //set to true to see output in cmd instead
+      "MIMode": "gdb",
+      "miDebuggerServerAddress": "localhost:2000",
+      "miDebuggerPath": "${env:USERPROFILE}/scoop/apps/avr-gcc/current/bin/avr-gdb.exe",
+    }
+    ],
+    "version": "0.2.0"
+}
