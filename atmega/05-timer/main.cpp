@@ -7,32 +7,14 @@
 
 extern void Timer0Init();
 extern void USART0Init();
+extern unsigned long millis();
 
 #define F(s) PSTR(s)
 
 #define TOGGLE(x,y) ( (x) ^= ( 1U << (y)) )
 #define CHECKBIT(x,y) ( (x) & ( 1U << (y) ) )
 
-extern volatile unsigned long timer0_millis;
-
 unsigned long msec;
-
-/**
- * @brief   Возвращает текущее количество миллисекунд.
- * 
- */
-unsigned long millis()
-{
-    unsigned long msec;
-
-    ATOMIC_BLOCK( ATOMIC_RESTORESTATE )
-    {
-        msec = timer0_millis;
-    }
-
-    return msec;
-}
-
 
 /**
  * @brief   Выполняет настройку.

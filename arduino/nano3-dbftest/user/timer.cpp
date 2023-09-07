@@ -71,8 +71,6 @@ void Timer0Init()
 /**
  * @brief   Возвращает текущее количество миллисекунд.
  * 
- * @return  unsigned long   количество миллисекунд
- * 
  */
 unsigned long millis()
 {

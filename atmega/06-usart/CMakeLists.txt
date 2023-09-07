@@ -25,14 +25,13 @@ target_compile_options(${PROJECT_NAME} PRIVATE
     # оптимизация 
     $<$<CONFIG:DEBUG>:-O1>
     $<$<CONFIG:RELEASE>:-Os>
-    -fno-lto
     -funsigned-char
     -fpack-struct
     -ffunction-sections -fdata-sections
     # отладочная информация
     $<$<CONFIG:DEBUG>:-gdwarf-2 -gstrict-dwarf>
     # c/cxx флаги    
-    $<$<COMPILE_LANGUAGE:CXX>:-fpermissive -fno-exceptions -fno-rtti -funsigned-bitfields -fshort-enums -Winline>
+    $<$<COMPILE_LANGUAGE:CXX>:-fpermissive -fno-exceptions -fno-rtti -funsigned-bitfields -fshort-enums>
     # GCC 12 AVR array subscript 0 is outside array bounds
     $<$<VERSION_GREATER_EQUAL:$<CXX_COMPILER_VERSION>,12.0>:--param=min-pagesize=0>
 )
@@ -48,7 +47,7 @@ target_link_options(${PROJECT_NAME} PRIVATE
 )
 
 # Подключаем конфигурационный файл компоновщика.
-#avr_add_linker_script(${PROJECT_NAME} PRIVATE default.ld)
+avr_add_linker_script(${PROJECT_NAME} PRIVATE default.ld)
 
 # Артефакты сборки.
 avr_print_size_of_target(${PROJECT_NAME})

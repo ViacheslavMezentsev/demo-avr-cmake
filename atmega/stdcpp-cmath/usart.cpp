@@ -59,11 +59,10 @@ void USART0Init()
     UCSR0C = _BV( UCSZ01 ) | _BV( UCSZ00 );
 
 	static FILE uart_output = {};
-	static FILE uart_input = {};
-
 	fdev_setup_stream( & uart_output, uart_putc, nullptr, _FDEV_SETUP_WRITE );
-	fdev_setup_stream( & uart_input, nullptr, uart_getc, _FDEV_SETUP_READ );
-
 	stdout = & uart_output;
+
+	static FILE uart_input = {};	
+	fdev_setup_stream( & uart_input, nullptr, uart_getc, _FDEV_SETUP_READ );	
 	stdin = & uart_input;
 }

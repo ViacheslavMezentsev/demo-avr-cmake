@@ -5,6 +5,8 @@ target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 target_sources(${PROJECT_NAME} PRIVATE
 #    Logger.cpp
 #    Print.cpp
+    timer.cpp
+    usart.cpp
     SPI.cpp
     main.cpp
 )

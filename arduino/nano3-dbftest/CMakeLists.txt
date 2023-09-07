@@ -36,7 +36,7 @@ target_compile_options(${PROJECT_NAME} PRIVATE
     # отладочная информация
     $<$<CONFIG:DEBUG>:-gdwarf-2 -gstrict-dwarf>
     # c/cxx флаги    
-    $<$<COMPILE_LANGUAGE:CXX>:-fpermissive -fno-exceptions -fno-rtti -funsigned-bitfields -fshort-enums -Winline>
+    $<$<COMPILE_LANGUAGE:CXX>:-fpermissive -fno-exceptions -fno-rtti -funsigned-bitfields -fshort-enums>
     # GCC 12 AVR array subscript 0 is outside array bounds
     $<$<VERSION_GREATER_EQUAL:$<CXX_COMPILER_VERSION>,12.0>:--param=min-pagesize=0>
 )

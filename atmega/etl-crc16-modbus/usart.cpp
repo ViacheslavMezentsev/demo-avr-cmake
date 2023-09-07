@@ -58,16 +58,11 @@ void USART0Init()
     // Формат обмена: 8-N-1.
     UCSR0C = _BV( UCSZ01 ) | _BV( UCSZ00 );
 
-	//static FILE uart_output = {};
-	//fdev_setup_stream( & uart_output, uart_putc, nullptr, _FDEV_SETUP_WRITE );
-	//stdout = & uart_output;
+	static FILE uart_output = {};
+	fdev_setup_stream( & uart_output, uart_putc, nullptr, _FDEV_SETUP_WRITE );
+	stdout = & uart_output;
 
-	//static FILE uart_input = {};
-	//fdev_setup_stream( & uart_input, nullptr, uart_getc, _FDEV_SETUP_READ );
-	//stdin = & uart_input;
-
-	static FILE uart_inout = {};
-	fdev_setup_stream( & uart_inout, uart_putc, uart_getc, _FDEV_SETUP_RW );
-	stdout = & uart_inout;
-	stdin = & uart_inout;
+	static FILE uart_input = {};	
+	fdev_setup_stream( & uart_input, nullptr, uart_getc, _FDEV_SETUP_READ );	
+	stdin = & uart_input;
 }
