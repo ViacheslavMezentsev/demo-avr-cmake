@@ -45,13 +45,13 @@ ISR( TIMER0_OVF_vect )
 void setup()
 {
     // Настраиваем порт на вывод.
-	Led::SetConfiguration( Led::Port::Out );
+    Led::SetConfiguration( Led::Port::Out );
 
     Led::Clear();
 
-	Timer0::Start( Timer0::Div64 );
+    Timer0::Start( Timer0::Div64 );
 
-	Timer0::EnableInterrupt();
+    Timer0::EnableInterrupt();
 }
 
 

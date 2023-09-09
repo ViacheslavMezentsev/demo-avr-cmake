@@ -9,6 +9,6 @@
     // Настройки проекта.
     "executable": "${command:cmake.buildDirectory}/${workspaceFolderBasename}.elf",
     "device": "atmega328p",
-    "comport": "COM38",
+    "comport": "COM37",
     "combaud": "57600"
 }

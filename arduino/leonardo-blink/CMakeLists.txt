@@ -39,7 +39,6 @@ target_compile_options(${PROJECT_NAME} PRIVATE
     # оптимизация 
     $<$<CONFIG:DEBUG>:-O1>
     $<$<CONFIG:RELEASE>:-Os>
-    -flto
     -funsigned-char
     -ffunction-sections -fdata-sections
     # отладочная информация

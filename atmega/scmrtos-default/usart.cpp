@@ -16,11 +16,11 @@
  */
 static int uart_putc( char c, [[maybe_unused]] FILE * stream )
 {
-	loop_until_bit_is_set( UCSR0A, UDRE0 );
+    loop_until_bit_is_set( UCSR0A, UDRE0 );
 
-	UDR0 = c;
+    UDR0 = c;
 
-	return 0;
+    return 0;
 }
 
 
@@ -33,9 +33,9 @@ static int uart_putc( char c, [[maybe_unused]] FILE * stream )
  */
 static int uart_getc( [[maybe_unused]] FILE * stream )
 {
-	loop_until_bit_is_set( UCSR0A, RXC0 );
+    loop_until_bit_is_set( UCSR0A, RXC0 );
 
-	return UDR0;
+    return UDR0;
 }
 
 
@@ -58,11 +58,11 @@ void USART0Init()
     // Формат обмена: 8-N-1.
     UCSR0C = _BV( UCSZ01 ) | _BV( UCSZ00 );
 
-	static FILE uart_output = {};
-	fdev_setup_stream( & uart_output, uart_putc, nullptr, _FDEV_SETUP_WRITE );
-	stdout = & uart_output;
+    static FILE uart_output = {};
+    fdev_setup_stream( & uart_output, uart_putc, nullptr, _FDEV_SETUP_WRITE );
+    stdout = & uart_output;
 
-	static FILE uart_input = {};
-	fdev_setup_stream( & uart_input, nullptr, uart_getc, _FDEV_SETUP_READ );
-	stdin = & uart_input;
+    static FILE uart_input = {};
+    fdev_setup_stream( & uart_input, nullptr, uart_getc, _FDEV_SETUP_READ );
+    stdin = & uart_input;
 }

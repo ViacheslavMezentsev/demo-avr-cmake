@@ -9,47 +9,47 @@ template<typename RealValueType, typename RealFunctionType>
 auto integral( const RealValueType& a, const RealValueType& b, const RealValueType& tol, RealFunctionType real_function ) 
 noexcept -> RealValueType
 {
-	using real_value_type = RealValueType;
+    using real_value_type = RealValueType;
 
-	std::uint_fast32_t n2(1);
+    std::uint_fast32_t n2(1);
 
-	real_value_type step = ( ( b - a ) / 2U );
-	real_value_type result = ( real_function(a) + real_function(b) ) * step;
+    real_value_type step = ( ( b - a ) / 2U );
+    real_value_type result = ( real_function(a) + real_function(b) ) * step;
 
-	const std::uint_fast8_t k_max = UINT8_C( 32 );
+    const std::uint_fast8_t k_max = UINT8_C( 32 );
 
-	for ( std::uint_fast8_t k = UINT8_C(0); k < k_max; ++k )
-	{
-		real_value_type sum(0);
+    for ( std::uint_fast8_t k = UINT8_C(0); k < k_max; ++k )
+    {
+        real_value_type sum(0);
 
-		for ( std::uint_fast32_t j( 0U ); j < n2; ++j )
-		{
-			const std::uint_fast32_t two_j_plus_one = ( j * UINT32_C(2) ) + UINT32_C(1);
+        for ( std::uint_fast32_t j( 0U ); j < n2; ++j )
+        {
+            const std::uint_fast32_t two_j_plus_one = ( j * UINT32_C(2) ) + UINT32_C(1);
 
-			sum += real_function( a + real_value_type( step * real_value_type( two_j_plus_one ) ) );
-		}
+            sum += real_function( a + real_value_type( step * real_value_type( two_j_plus_one ) ) );
+        }
 
-		const real_value_type tmp = result;
+        const real_value_type tmp = result;
 
-		result = ( result / 2U ) + ( step * sum );
+        result = ( result / 2U ) + ( step * sum );
 
-		using std::fabs;
+        using std::fabs;
 
-		const real_value_type ratio = fabs( tmp / result );
+        const real_value_type ratio = fabs( tmp / result );
 
-		const real_value_type delta = fabs( ratio - 1U );
+        const real_value_type delta = fabs( ratio - 1U );
 
-		if ( ( k > UINT8_C( 1 ) ) && ( delta < tol ) )
-		{
-			break;
-		}
+        if ( ( k > UINT8_C( 1 ) ) && ( delta < tol ) )
+        {
+            break;
+        }
 
-		n2 *= 2U;
+        n2 *= 2U;
 
-		step /= 2U;
-	}
+        step /= 2U;
+    }
 
-	return result;
+    return result;
 }
 
 template<typename FloatingPointType>
@@ -57,14 +57,14 @@ auto is_close_fraction( const FloatingPointType a, const FloatingPointType b,
 const FloatingPointType tol = FloatingPointType( std::numeric_limits<FloatingPointType>::epsilon() * FloatingPointType( 100 ) ) ) 
 noexcept -> bool
 {
-	using std::fabs;
-	using floating_point_type = FloatingPointType;
+    using std::fabs;
+    using floating_point_type = FloatingPointType;
 
-	const floating_point_type ratio = fabs( floating_point_type( ( floating_point_type(1) * a ) / b ) );
+    const floating_point_type ratio = fabs( floating_point_type( ( floating_point_type(1) * a ) / b ) );
 
-	const floating_point_type closeness = fabs( floating_point_type( 1 - ratio ) );
+    const floating_point_type closeness = fabs( floating_point_type( 1 - ratio ) );
 
-	return ( closeness < tol );
+    return ( closeness < tol );
 }
 
 // N[Pi, 51]
@@ -91,7 +91,7 @@ auto cyl_bessel_j( const std::uint_fast8_t n, const FloatingPointType& x ) noexc
     const auto integration_result = integral(
         static_cast<floating_point_type>( 0 ), pi_v<floating_point_type>, tol,
         [&x, &n]( const floating_point_type & t ) noexcept -> floating_point_type
-		{
+        {
             return cos( x * sin( t ) - ( t * static_cast<floating_point_type>(n) ) );
         } );
 
@@ -103,7 +103,7 @@ auto cyl_bessel_j( const std::uint_fast8_t n, const FloatingPointType& x ) noexc
 
 auto main() -> int
 {
-	// Настройка USART0.
+    // Настройка USART0.
     USART0Init();
 
     using my_float_type = long double;
@@ -118,7 +118,7 @@ auto main() -> int
 
     const bool result_is_ok = is_close_fraction( static_cast<my_float_type>( 0.1663693837868140735126785243L ), j2, my_tol );
 
-	printf( result_is_ok ? "is ok" : "isn't ok" );
+    printf( result_is_ok ? "is ok" : "isn't ok" );
 
     return ( result_is_ok ? 0 : -1 );
 }
