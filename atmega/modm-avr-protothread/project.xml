@@ -3,6 +3,7 @@
     <option name="modm:target">atmega328p-au</option>
     <option name="modm:platform:core:f_cpu">16M</option>
     <option name="modm:build:build.path">./build</option>
+    <option name="modm:build:cmake:include_cmakelists">false</option>
   </options>
   <modules>
     <module>modm:platform:core</module>
@@ -11,5 +12,6 @@
     <module>modm:processing:protothread</module>
     <module>modm:processing:timer</module>
     <module>modm:build:scons</module>
+    <module>modm:build:cmake</module>
   </modules>
 </library>

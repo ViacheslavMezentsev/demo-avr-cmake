@@ -5,10 +5,12 @@
     <option name="modm:io:with_long_long">yes</option>
     <option name="modm:io:with_float">yes</option>
     <option name="modm:io:with_printf">yes</option>
+    <option name="modm:build:cmake:include_cmakelists">false</option>
   </options>
   <modules>
     <module>modm:io</module>
     <module>modm:processing:timer</module>
     <module>modm:build:scons</module>
+    <module>modm:build:cmake</module>
   </modules>
 </library>
