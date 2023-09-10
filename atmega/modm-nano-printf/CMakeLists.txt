@@ -88,7 +88,7 @@ target_link_options(${PROJECT_NAME} PRIVATE
     -Wl,--defsym=__DATA_REGION_LENGTH__=2K
     -Wl,--defsym=__EEPROM_REGION_LENGTH__=1K
     -Wl,-Map=${PROJECT_NAME}.map,--cref,--gc-sections,--print-memory-usage
-    -Wl,-u,vfprintf -lprintf_min -lprintf_flt
+    #-Wl,-u,vfprintf -lprintf_min -lprintf_flt
     #-Wl,--verbose
 )
 

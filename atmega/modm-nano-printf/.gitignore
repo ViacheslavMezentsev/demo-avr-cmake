@@ -4,4 +4,4 @@ BROWSE.*
 modm
 SConstruct
 *.log
-lbuild.xml
+*.dblite
