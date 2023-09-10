@@ -35,7 +35,6 @@ target_compile_options(${PROJECT_NAME} PRIVATE
     -mmcu=${MCU}    
     # предупреждения 
     -c
-    -g
     -w
     -MMD
     -Wno-error=narrowing

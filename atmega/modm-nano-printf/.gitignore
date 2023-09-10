@@ -1,0 +1,7 @@
+build
+Project Backups
+BROWSE.*
+modm
+SConstruct
+*.log
+lbuild.xml
