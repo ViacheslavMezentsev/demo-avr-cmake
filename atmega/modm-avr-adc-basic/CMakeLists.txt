@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.19)
 
-set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD 23)
 
 set(MCU atmega328p)
 
@@ -17,19 +17,12 @@ add_executable(${PROJECT_NAME})
 add_subdirectory(stdcpp)
 
 target_sources(${PROJECT_NAME} PRIVATE
-    ${CMAKE_CURRENT_SOURCE_DIR}/modm/ext/printf/printf.c
-
-    ${CMAKE_CURRENT_SOURCE_DIR}/modm/src/modm/io/iostream.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/modm/src/modm/io/iostream_printf.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/modm/src/modm/board/board_fuses.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/modm/src/modm/board/board_serial.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/modm/src/modm/architecture/driver/atomic/flag.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/modm/src/modm/board/board_fuses.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/modm/src/modm/board/board_serial.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/modm/src/modm/io/iostream.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/modm/src/modm/io/iostream_printf.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/modm/src/modm/math/utils/avr/sqrt32.sx
     ${CMAKE_CURRENT_SOURCE_DIR}/modm/src/modm/math/utils/bit_operation.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/modm/src/modm/platform/adc/adc_interrupt.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/modm/src/modm/platform/clock/clock.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/modm/src/modm/platform/core/assert.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/modm/src/modm/platform/uart/uart0_rx.cpp
@@ -87,6 +80,7 @@ target_link_options(${PROJECT_NAME} PRIVATE
     -Wl,--defsym=__TEXT_REGION_LENGTH__=32K
     -Wl,--defsym=__DATA_REGION_LENGTH__=2K
     -Wl,--defsym=__EEPROM_REGION_LENGTH__=1K
+    -Wl,--relax
     -Wl,-Map=${PROJECT_NAME}.map,--cref,--gc-sections,--print-memory-usage
     #-Wl,-u,vfprintf -lprintf_min -lprintf_flt
     #-Wl,--verbose

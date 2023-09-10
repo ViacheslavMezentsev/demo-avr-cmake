@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.19)
 
-set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD 23)
 
 set(MCU atmega328p)
 
@@ -17,19 +17,12 @@ add_executable(${PROJECT_NAME})
 add_subdirectory(stdcpp)
 
 target_sources(${PROJECT_NAME} PRIVATE
-    ${CMAKE_CURRENT_SOURCE_DIR}/modm/ext/printf/printf.c
-
-    ${CMAKE_CURRENT_SOURCE_DIR}/modm/src/modm/io/iostream.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/modm/src/modm/io/iostream_printf.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/modm/src/modm/board/board_fuses.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/modm/src/modm/board/board_serial.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/modm/src/modm/architecture/driver/atomic/flag.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/modm/src/modm/board/board_fuses.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/modm/src/modm/board/board_serial.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/modm/src/modm/io/iostream.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/modm/src/modm/io/iostream_printf.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/modm/src/modm/math/utils/avr/sqrt32.sx
     ${CMAKE_CURRENT_SOURCE_DIR}/modm/src/modm/math/utils/bit_operation.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/modm/src/modm/platform/adc/adc_interrupt.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/modm/src/modm/platform/clock/clock.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/modm/src/modm/platform/core/assert.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/modm/src/modm/platform/uart/uart0_rx.cpp
@@ -66,18 +59,18 @@ target_compile_options(${PROJECT_NAME} PRIVATE
     # оптимизация 
     $<$<CONFIG:DEBUG>:-O1>
     $<$<CONFIG:RELEASE>:-Os>
-    -funsigned-char
     -ffunction-sections -fdata-sections
     -finline-limit=10000
     -fno-builtin-printf
     -fshort-wchar
     -funsigned-bitfields
+    -funsigned-char
     -fwrapv
     $<$<CONFIG:DEBUG>:-fno-move-loop-invariants -fno-split-wide-types -fno-tree-loop-optimize>
     # отладочная информация
     $<$<CONFIG:DEBUG>:-gdwarf-3 -gstrict-dwarf>
     # c/cxx флаги    
-    $<$<COMPILE_LANGUAGE:CXX>:-fpermissive -fno-exceptions -fno-rtti -fno-unwind-tables -fno-threadsafe-statics -fno-use-cxa-atexit -fstrict-enums>
+    $<$<COMPILE_LANGUAGE:CXX>:-fno-exceptions -fno-rtti -fno-unwind-tables -fno-threadsafe-statics -fno-use-cxa-atexit -fstrict-enums>
     # GCC 12 AVR array subscript 0 is outside array bounds
     $<$<VERSION_GREATER_EQUAL:$<CXX_COMPILER_VERSION>,12.0>:--param=min-pagesize=0>
 )
@@ -87,6 +80,7 @@ target_link_options(${PROJECT_NAME} PRIVATE
     -Wl,--defsym=__TEXT_REGION_LENGTH__=32K
     -Wl,--defsym=__DATA_REGION_LENGTH__=2K
     -Wl,--defsym=__EEPROM_REGION_LENGTH__=1K
+    -Wl,--relax
     -Wl,-Map=${PROJECT_NAME}.map,--cref,--gc-sections,--print-memory-usage
     #-Wl,-u,vfprintf -lprintf_min -lprintf_flt
     #-Wl,--verbose

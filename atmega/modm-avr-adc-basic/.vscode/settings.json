@@ -1,0 +1,19 @@
+{
+    "cSpell.ignoreRegExpList": ["\\b[0-9A-Z_]+\\b"],
+    "cmake.generator": "Ninja",
+    "cmake.buildDirectory" : "${workspaceRoot}/build/${buildType}",
+    "cmake.configureEnvironment":
+    {
+        "CMAKE_EXPORT_COMPILE_COMMANDS": "on"
+    },
+    // Настройки проекта.
+    "executable": "${command:cmake.buildDirectory}/${workspaceFolderBasename}.elf",
+    "device": "m328p",
+    "comport": "COM37",
+    "combaud": "57600",
+    "files.associations": {
+        "Makefile": "makefile",
+        "cstdio": "cpp",
+        "cstddef": "cpp"
+    }
+}
