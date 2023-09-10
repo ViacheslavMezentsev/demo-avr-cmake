@@ -17,16 +17,9 @@ add_executable(${PROJECT_NAME})
 add_subdirectory(stdcpp)
 
 target_sources(${PROJECT_NAME} PRIVATE
-    ${CMAKE_CURRENT_SOURCE_DIR}/modm/src/modm/architecture/driver/atomic/flag.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/modm/src/modm/io/iostream.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/modm/src/modm/io/iostream_printf.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/modm/src/modm/math/utils/avr/sqrt32.sx
     ${CMAKE_CURRENT_SOURCE_DIR}/modm/src/modm/math/utils/bit_operation.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/modm/src/modm/platform/adc/adc_interrupt.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/modm/src/modm/platform/clock/clock.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/modm/src/modm/platform/core/assert.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/modm/src/modm/platform/uart/uart0_rx.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/modm/src/modm/platform/uart/uart0_tx.cpp
 
     main.cpp
 )
@@ -59,18 +52,18 @@ target_compile_options(${PROJECT_NAME} PRIVATE
     # оптимизация 
     $<$<CONFIG:DEBUG>:-O1>
     $<$<CONFIG:RELEASE>:-Os>
+    -funsigned-char
     -ffunction-sections -fdata-sections
     -finline-limit=10000
     -fno-builtin-printf
     -fshort-wchar
     -funsigned-bitfields
-    -funsigned-char
     -fwrapv
     $<$<CONFIG:DEBUG>:-fno-move-loop-invariants -fno-split-wide-types -fno-tree-loop-optimize>
     # отладочная информация
     $<$<CONFIG:DEBUG>:-gdwarf-2 -gstrict-dwarf>
     # c/cxx флаги    
-    $<$<COMPILE_LANGUAGE:CXX>:-fno-exceptions -fno-rtti -fno-unwind-tables -fno-threadsafe-statics -fno-use-cxa-atexit -fstrict-enums>
+    $<$<COMPILE_LANGUAGE:CXX>:-fpermissive -fno-exceptions -fno-rtti -fno-unwind-tables -fno-threadsafe-statics -fno-use-cxa-atexit -fstrict-enums>
     # GCC 12 AVR array subscript 0 is outside array bounds
     $<$<VERSION_GREATER_EQUAL:$<CXX_COMPILER_VERSION>,12.0>:--param=min-pagesize=0>
 )

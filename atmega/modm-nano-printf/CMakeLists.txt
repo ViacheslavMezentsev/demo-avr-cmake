@@ -75,7 +75,7 @@ target_compile_options(${PROJECT_NAME} PRIVATE
     -fwrapv
     $<$<CONFIG:DEBUG>:-fno-move-loop-invariants -fno-split-wide-types -fno-tree-loop-optimize>
     # отладочная информация
-    $<$<CONFIG:DEBUG>:-gdwarf-3 -gstrict-dwarf>
+    $<$<CONFIG:DEBUG>:-gdwarf-2 -gstrict-dwarf>
     # c/cxx флаги    
     $<$<COMPILE_LANGUAGE:CXX>:-fpermissive -fno-exceptions -fno-rtti -fno-unwind-tables -fno-threadsafe-statics -fno-use-cxa-atexit -fstrict-enums>
     # GCC 12 AVR array subscript 0 is outside array bounds

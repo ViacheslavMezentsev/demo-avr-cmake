@@ -5,9 +5,6 @@
     <option name="modm:build:build.path">./build</option>
   </options>
   <modules>
-    <module>modm:io</module>
-    <module>modm:architecture:delay</module>
-    <module>modm:platform:adc</module>
     <module>modm:platform:clock</module>
     <module>modm:platform:core</module>
     <module>modm:platform:gpio</module>
