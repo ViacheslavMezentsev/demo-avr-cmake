@@ -48,8 +48,9 @@ void loop()
     // Мигаем светодиодом.
     // Writing a '1' to PINxn toggles the value of PORTxn, independent on the value of DDRxn.
     // The SBI instruction can be used to toggle one single bit in a port.
-    //PINB = _BV( PB5 );
-    
+#if 1
+    PINB = _BV( PB5 );
+#else    
     // Или так.
     if ( bit_is_set( PINB, PB5 ) )
     {
@@ -59,6 +60,7 @@ void loop()
     {
         SetBit( & PORTB, PB5 );
     }
+#endif
 
     _delay_ms( 1000 );
 }

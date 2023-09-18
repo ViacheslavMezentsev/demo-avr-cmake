@@ -30,7 +30,6 @@ target_compile_options(${PROJECT_NAME} PRIVATE
     $<$<CONFIG:DEBUG>:-O1>
     $<$<CONFIG:RELEASE>:-Os>
     -funsigned-char
-    -fpack-struct
     -ffunction-sections -fdata-sections
     # отладочная информация
     $<$<CONFIG:DEBUG>:-gdwarf-2 -gstrict-dwarf>

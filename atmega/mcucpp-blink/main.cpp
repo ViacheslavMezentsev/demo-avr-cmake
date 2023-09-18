@@ -1,9 +1,11 @@
 #include <avr/interrupt.h>
+#include <iopins.h>
 #include <delay.h>
 
 using namespace Mcucpp;
+using namespace IO;
 
-unsigned char count {0};
+typedef Pb5 Led;
 
 /**
  * @brief   Выполняет настройку.
@@ -11,7 +13,9 @@ unsigned char count {0};
  */
 void setup()
 {
-    count = 0;
+    // Настраиваем порт на вывод.
+    Led::SetDirWrite();
+    Led::Clear();
 }
 
 
@@ -21,7 +25,7 @@ void setup()
  */
 void loop()
 {
-    count++;
+    Led::Toggle();
 
     delay_ms<1000, F_CPU>();
 }
