@@ -1,0 +1,70 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "type": "cmake",
+      "label": "CMake: build",
+      "command": "build",
+      "targets": [
+          "ALL_BUILD"
+      ],
+      "problemMatcher": [],
+      "group": "build"
+    },
+    {
+      "type": "shell",
+      "label": "Flash",
+      "command": "avrdude",
+      "args": [
+        "\"-C${env:USERPROFILE}/scoop/apps/avr-gcc/current/bin/avrdude.conf\"",
+        "-v", "-V", "-cavr109",
+        "-p${config:device}",        
+        "\"-P${config:comport}\"", "-b${config:combaud}",
+        "-D", "-U\"flash:w:${command:cmake.buildDirectory}/${workspaceFolderBasename}.elf:e\""
+      ],
+      "options": {
+        "cwd": "${command:cmake.buildDirectory}"
+      },
+      "dependsOn": "CMake: build",
+      "problemMatcher": [],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "detail": "Builds project and flashes firmware."
+    },
+    {
+      "type": "shell",
+      "label": "Erase",
+      "command": "avrdude",
+      "args": [
+        "-carduino",
+        "-p${config:device}",        
+        "\"-P${config:comport}\"", "-b${config:combaud}",
+        "-e"
+      ],
+      "options": {
+        "cwd": "${command:cmake.buildDirectory}"
+      },
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "detail": "Erase the chip"
+    }
+  ],
+  
+  "inputs": [
+    {
+      "id": "workspaceFolderForwardSlash",
+      "type": "command",
+      "command": "extension.commandvariable.transform",
+      "args": {
+        "text": "${workspaceFolder}",
+        "find": "\\\\",
+        "replace": "/",
+        "flags": "g"
+      }
+    }
+  ]
+}

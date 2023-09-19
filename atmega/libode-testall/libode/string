@@ -1,0 +1,8 @@
+﻿#pragma once
+
+#include "etl/string.h"
+
+namespace std
+{
+typedef etl::string<32> string;
+}
