@@ -22,3 +22,6 @@
 [submodule "modules/Modbus-Master-Slave-for-Arduino"]
 	path = modules/Modbus-Master-Slave-for-Arduino
 	url = https://github.com/smarmengol/Modbus-Master-Slave-for-Arduino
+[submodule "modules/libode"]
+	path = modules/libode
+	url = https://github.com/markmbaum/libode
