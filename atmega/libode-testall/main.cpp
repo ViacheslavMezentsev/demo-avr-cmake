@@ -8,7 +8,7 @@
 #include "ode_newton.h"
 #include "test_systems.h"
 
-extern void USART1Init();
+extern void USART_Init();
 
 #define F(s) PSTR(s)
 #define printfln( format, ... ) printf( ( const char * ) ( format "\n" ), ##__VA_ARGS__ )
@@ -35,8 +35,8 @@ void test_sys( T sys )
     sys.solve_fixed( tint, dt );
 
     // Calculate errors.
-    y0er = fabs( sys.get_sol( 0 ) - y0ex );
-    y1er = fabs( sys.get_sol( 1 ) - y1ex );
+    y0er = fabs( sys.get_sol(0) - y0ex );
+    y1er = fabs( sys.get_sol(1) - y1ex );
 
     // Check the errors.
     printf_P( F( "%s:\n" ), sys.get_method() );
@@ -172,7 +172,7 @@ void test_snaps()
     tsnap[3] = 3.14;
     tsnap[4] = 4.9;
 
-    printf( "Solving system '%s' with method '%s'\n", sys.get_name(), sys.get_method() );
+    printf_P( F( "Solving system '%s' with method '%s'\n" ), sys.get_name(), sys.get_method() );
 
     // Solve with evenly spaced snaps.
     //sys.solve_adaptive( tint, dt, nsnap, "out" );
@@ -180,13 +180,13 @@ void test_snaps()
     // Solve with snap times from tsnap.
     sys.solve_adaptive( dt, tsnap.get(), nsnap, "out" );
 
-    printf( "%lu function evaluations, %lu steps\n", sys.get_neval(), sys.get_nstep() );
+    printf( F( "%lu function evaluations, %lu steps\n" ), sys.get_neval(), sys.get_nstep() );
 }
 
 
 void test_all()
 {
-    printf( "test all solvers:\n" );
+    printf_P( F( "test all solvers:\n" ) );
 
     // Integrate all the systems and check their errors.
     test_sys( Osc2<OdeEuler>() );
@@ -195,7 +195,7 @@ void test_all()
     test_sys( Osc2<OdeRKF32>() );
     test_sys( Osc2<OdeRK4>() );
     test_sys( Osc2<OdeRK43>() );
-    //test_sys( Osc2<OdeRKCK>() );
+    test_sys( Osc2<OdeRKCK>() );
     //test_sys( Osc2<OdeDoPri54>() );
     //test_sys( Osc2<OdeVern65>() );
     //test_sys( Osc2<OdeVern76>() );
@@ -218,8 +218,8 @@ void test_all()
  */
 int main()
 {
-    // Настройка USART1.
-    USART1Init();
+    // Настройка USART.
+    USART_Init();
 
     //test_adapt();
     //test_newton();

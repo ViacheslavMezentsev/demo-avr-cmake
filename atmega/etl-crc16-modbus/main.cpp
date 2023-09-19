@@ -15,6 +15,14 @@ extern void USART0Init();
 etl::string<16> fmt( "%s: 0x%04X\n" );
 etl::string<16> data( "123456789" );
 
+
+#ifdef NDEBUG
+namespace std
+{
+void __throw_length_error(char const*) { while (true) {} }
+}
+#endif
+
 void test_crc16_modbus()
 {
     uint16_t crc = etl::crc16_modbus_t16( data.begin(), data.end() );

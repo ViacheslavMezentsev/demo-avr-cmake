@@ -16,9 +16,17 @@
  */
 static int uart_putc( char c, [[maybe_unused]] FILE * stream )
 {
-    loop_until_bit_is_set( UCSR1A, UDRE1 );
+#ifdef __AVR_ATmega328P__
 
+    loop_until_bit_is_set( UCSR0A, UDRE0 );
+    UDR0 = c;
+
+#elif defined(__AVR_ATmega32U4__)
+
+    loop_until_bit_is_set( UCSR1A, UDRE1 );
     UDR1 = c;
+
+#endif
 
     return 0;
 }
@@ -33,18 +41,45 @@ static int uart_putc( char c, [[maybe_unused]] FILE * stream )
  */
 static int uart_getc( [[maybe_unused]] FILE * stream )
 {
+#ifdef __AVR_ATmega328P__
+
+    loop_until_bit_is_set( UCSR0A, RXC0 );
+
+    return UDR0;
+
+#elif defined(__AVR_ATmega32U4__)
+
     loop_until_bit_is_set( UCSR1A, RXC1 );
 
     return UDR1;
+
+#endif
 }
 
 
 /**
- * @brief   Выполняет настройку USART1.
+ * @brief   Выполняет настройку USART.
  * 
  */
-void USART1Init()
+void USART_Init()
 {
+#ifdef __AVR_ATmega328P__
+
+    // Включение режима двойной скорости.
+    UCSR0A |= _BV( U2X0 );
+
+    // Устанавливаем скорость.
+    UBRR0H = BAUD_REG_VALUE >> 8;
+    UBRR0L = BAUD_REG_VALUE;
+
+    // Включаем передатчик и приёмник USART0.
+    UCSR0B = _BV( TXEN0 ) | _BV( RXEN0 );
+
+    // Формат обмена: 8-N-1.
+    UCSR0C = _BV( UCSZ01 ) | _BV( UCSZ00 );
+
+#elif defined(__AVR_ATmega32U4__)
+
     // Включение режима двойной скорости.
     UCSR1A |= _BV( U2X1 );
 
@@ -57,6 +92,8 @@ void USART1Init()
 
     // Формат обмена: 8-N-1.
     UCSR1C = _BV( UCSZ11 ) | _BV( UCSZ10 );
+
+#endif
 
     static FILE uart_output = {};
     fdev_setup_stream( & uart_output, uart_putc, nullptr, _FDEV_SETUP_WRITE );

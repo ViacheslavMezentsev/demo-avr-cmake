@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.19)
 
 set(CMAKE_CXX_STANDARD 17)
 
-set(MCU atmega32u4)
+set(MCU atmega328p)
 
 set(CMAKE_TOOLCHAIN_FILE "${CMAKE_CURRENT_SOURCE_DIR}/../../modules/avr-cmake/cmake/avr_gcc.cmake")
 
@@ -18,11 +18,16 @@ add_subdirectory(stdcpp)
 add_subdirectory(libode)
 #add_subdirectory(printf)
 
+target_include_directories(${PROJECT_NAME} PRIVATE
+    ${AVR_TOOLCHAIN_PATH}/lib/gcc/avr/${CMAKE_CXX_COMPILER_VERSION}/include
+)
+
 target_link_libraries(${PROJECT_NAME} m)
 
 target_compile_definitions(${PROJECT_NAME} PRIVATE 
-    _SYSTEM_BUILD 
     F_CPU=16000000UL
+    $<$<CONFIG:RELEASE>:NDEBUG>
+    _NO_BAD_XXX
     #PRINTF_SUPPORT_LONG_LONG=0
     #PRINTF_ALIAS_STANDARD_FUNCTION_NAMES=1
 )
