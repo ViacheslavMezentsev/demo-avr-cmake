@@ -25,3 +25,6 @@
 [submodule "modules/libode"]
 	path = modules/libode
 	url = https://github.com/markmbaum/libode
+[submodule "modules/AVR_C"]
+	path = modules/AVR_C
+	url = https://github.com/lkoepsel/AVR_C

@@ -1,14 +1,12 @@
 #include <stdio.h>
-#include <util/atomic.h>
 #include <avr/pgmspace.h>
-#include <avr/io.h>
 #include <iterator>
 #include <vector>
 #include <stdint.h>
 #include "etl/string.h"
 #include "etl/crc16_modbus.h"
 
-extern void USART0Init();
+extern void USART_Init();
 
 #define F(s)    PSTR(s)
 
@@ -89,8 +87,8 @@ void test_crc16_modbus_16()
  */
 void setup()
 {
-    // Настройка USART0.
-    USART0Init();
+    // Настройка USART.
+    USART_Init();
 
     test_crc16_modbus();
     test_crc16_modbus_add_values();
@@ -115,10 +113,7 @@ void loop()
  */
 int main( void )
 {
-    ATOMIC_BLOCK( ATOMIC_FORCEON )
-    {
-        setup();
-    }
+    setup();
 
     while (1)
     {

@@ -10,6 +10,6 @@
     "executable": "${command:cmake.buildDirectory}/${workspaceFolderBasename}.elf",
     "device": "atmega32u4",
     "usbdevice": "usb:2341:8036",
-    "comport": "COM63",
+    "comport": "COM81",
     "combaud": "57600"
 }

@@ -1,7 +1,9 @@
+#include <util/atomic.h>
 #include <avr/interrupt.h>
 #include <iopins.h>
 #include <pinlist.h>
 #include <timers.h>
+#include <Timeout.h>
 
 using namespace Mcucpp;
 using namespace Timers;
@@ -16,8 +18,7 @@ using namespace IO;
 #define MICROSECONDS_PER_TIMER0_OVERFLOW ( clockCyclesToMicroseconds( 64 * 256 ) )
 
 typedef Pb5 Led;
-
-volatile unsigned int count {0};
+TimeoutCounter<uint16_t> Counter {0};
 
 /**
  * @brief   Обработчик прерывания TIMER0_OVF.
@@ -25,12 +26,11 @@ volatile unsigned int count {0};
  */
 ISR( TIMER0_OVF_vect )
 {
-    count++;
+    Counter.Tick();
 
-    // Отсчитываем интервал 1 сек.
-    if ( count > 1000000UL / MICROSECONDS_PER_TIMER0_OVERFLOW )
+    if ( Counter.IsTimeout() )
     {
-        count = 0;
+        Counter.Reset();
 
         // Мигаем светодиодом.
         Led::Toggle();  
@@ -50,6 +50,8 @@ void setup()
 
     Timer0::Start( Timer0::Div64 );
     Timer0::EnableInterrupt();
+
+    Counter.Set( 1000000UL / MICROSECONDS_PER_TIMER0_OVERFLOW );    
 }
 
 
@@ -68,9 +70,10 @@ void loop()
  */
 int main()
 {
-    setup();
-
-    sei();
+    ATOMIC_BLOCK( ATOMIC_FORCEON )
+    {
+        setup();
+    }
 
     while (1)
     {

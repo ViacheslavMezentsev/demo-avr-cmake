@@ -12,21 +12,14 @@ set(PROJECT_NAME ${BASE_FOLDER})
 
 project(${PROJECT_NAME} C CXX ASM)
 
-add_executable(${PROJECT_NAME})
+add_executable(${PROJECT_NAME} usart.cpp main.cpp)
 
-target_sources(${PROJECT_NAME} PRIVATE
-    new.cpp
-    usart.cpp
-    main.cpp
-)
+add_subdirectory(stdcpp)
 
 target_link_libraries(${PROJECT_NAME} m)
 
 target_include_directories(${PROJECT_NAME} PRIVATE
-    ${CMAKE_CURRENT_SOURCE_DIR}
     ${AVR_TOOLCHAIN_PATH}/lib/gcc/avr/${CMAKE_CXX_COMPILER_VERSION}/include
-    ${CMAKE_CURRENT_SOURCE_DIR}/../../modules/avr-libstdcpp/include
-    ${CMAKE_CURRENT_SOURCE_DIR}/../../modules/avr-libstdcpp/src
     ${CMAKE_CURRENT_SOURCE_DIR}/../../modules/etl/include
 )
 
@@ -55,16 +48,16 @@ target_compile_options(${PROJECT_NAME} PRIVATE
 
 target_link_options(${PROJECT_NAME} PRIVATE
     -mmcu=${MCU}  
-    -Wl,--defsym=__TEXT_REGION_LENGTH__=32K
-    -Wl,--defsym=__DATA_REGION_LENGTH__=2K
-    -Wl,--defsym=__EEPROM_REGION_LENGTH__=1K
+    #-Wl,--defsym=__TEXT_REGION_LENGTH__=32K
+    #-Wl,--defsym=__DATA_REGION_LENGTH__=2K
+    #-Wl,--defsym=__EEPROM_REGION_LENGTH__=1K
     -Wl,-Map=${PROJECT_NAME}.map,--cref,--gc-sections,--print-memory-usage
     -Wl,-u,vfprintf -lprintf_min -lprintf_flt
     #-Wl,--verbose
 )
 
 # Подключаем конфигурационный файл компоновщика.
-avr_add_linker_script(${PROJECT_NAME} PRIVATE default.ld)
+avr_add_linker_script(${PROJECT_NAME} PRIVATE ${MCU}.ld)
 
 # Артефакты сборки.
 avr_print_size_of_target(${PROJECT_NAME})
