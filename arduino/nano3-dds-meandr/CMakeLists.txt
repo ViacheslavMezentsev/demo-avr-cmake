@@ -16,7 +16,7 @@ add_executable(${PROJECT_NAME} dds.ino.cpp)
 
 add_subdirectory(Arduino/Core)
 add_subdirectory(Arduino/PinChangeInterrupt)
-add_subdirectory(Arduino/CyberLib)
+#add_subdirectory(Arduino/CyberLib)
 
 target_link_libraries(${PROJECT_NAME} Arduino::Core)
 
@@ -26,6 +26,10 @@ target_compile_definitions(${PROJECT_NAME} PRIVATE
     ARDUINO_AVR_NANO
     #ARDUINO_AVR_LEONARDO
     ARDUINO_ARCH_AVR
+)
+
+target_include_directories(${PROJECT_NAME} PUBLIC 
+    ${CMAKE_CURRENT_SOURCE_DIR}
 )
 
 target_compile_options(${PROJECT_NAME} PRIVATE    

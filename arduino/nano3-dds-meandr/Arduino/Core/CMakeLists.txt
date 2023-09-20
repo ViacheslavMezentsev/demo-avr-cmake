@@ -25,7 +25,7 @@ target_sources(ArduinoCore PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/../../../../modules/ArduinoCore-avr/cores/arduino/HardwareSerial2.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/../../../../modules/ArduinoCore-avr/cores/arduino/HardwareSerial3.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/../../../../modules/ArduinoCore-avr/cores/arduino/IPAddress.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/../../../../modules/ArduinoCore-avr/cores/arduino/main.cpp
+    #${CMAKE_CURRENT_SOURCE_DIR}/../../../../modules/ArduinoCore-avr/cores/arduino/main.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/../../../../modules/ArduinoCore-avr/cores/arduino/new.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/../../../../modules/ArduinoCore-avr/cores/arduino/PluggableUSB.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/../../../../modules/ArduinoCore-avr/cores/arduino/Print.cpp
