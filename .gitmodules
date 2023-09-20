@@ -28,3 +28,9 @@
 [submodule "modules/AVR_C"]
 	path = modules/AVR_C
 	url = https://github.com/lkoepsel/AVR_C
+[submodule "modules/CyberLib"]
+	path = modules/CyberLib
+	url = https://github.com/pythonista/CyberLib
+[submodule "modules/PinChangeInterrupt"]
+	path = modules/PinChangeInterrupt
+	url = https://github.com/NicoHood/PinChangeInterrupt
