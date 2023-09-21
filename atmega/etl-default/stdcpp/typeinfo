@@ -1,0 +1,94 @@
+// typeinfo standard header -*-c++-*-
+// Copyright 2009-2017 IAR Systems AB.
+#ifndef _TYPEINFO_
+#define _TYPEINFO_
+
+#ifndef _SYSTEM_BUILD
+  #pragma system_include
+#endif
+
+#ifndef _NO_BAD_XXX
+  #include <exception>
+#endif
+
+#ifndef _NO_BAD_XXX
+  namespace std {
+    // CLASS bad_cast
+    class bad_cast
+      : public exception
+    {       // base of all bad-cast exceptions
+    public:
+      bad_cast() _NOEXCEPT
+      {       // construct with no message string
+      }
+
+      virtual const char *what() const _NOEXCEPT
+      {       // report a bad cast
+        return "bad cast";
+      }
+    };
+
+    // CLASS bad_typeid
+    class bad_typeid
+      : public exception
+    {       // base of all bad-typeid exceptions
+    public:
+      bad_typeid() _NOEXCEPT
+      {       // construct with no message string
+      }
+
+      virtual const char *what() const _NOEXCEPT
+      {       // report a bad typeid
+        return "bad typeid";
+      }
+    };
+  } /* namespace std */
+#endif // _NO_BAD_XXX
+
+#if 0
+  #if defined(__EDG_IA64_ABI)
+    namespace __cxxabiv1
+    {       // declare forward reference to __class_type_info
+      class __class_type_info;
+    }
+  #endif
+#endif
+
+namespace std {
+  #if defined(__RTTI) && __RTTI == 1
+    #pragma define_type_info
+
+    // CLASS type_info
+    class type_info
+    {       // translator-supplied descriptor for a type
+    public:
+      size_t hash_code() const _NOEXCEPT;
+
+      virtual ~type_info();   // destroy the object
+
+      bool before(const type_info&) const _NOEXCEPT;// test if this precedes arg
+
+      bool operator==(const type_info&) const _NOEXCEPT;  // test for equality
+
+      bool operator!=(const type_info&) const _NOEXCEPT;  // test for inequality
+
+      const char *name() const _NOEXCEPT;                 // return name of type
+
+    public:
+      type_info(const type_info&) = delete;
+      type_info& operator=(const type_info&) = delete;
+
+      #ifdef __EDG_IA64_ABI
+      protected:
+        char const * __type_name;
+      #endif
+    };
+  #endif // defined(__RTTI) && __RTTI == 1
+} /* namespace std */
+
+#endif /* _TYPE_INFO_ */
+
+/*
+ * Copyright (c) by P.J. Plauger. All rights reserved.
+ * Consult your license regarding permissions and restrictions.
+V6.50:0576 */

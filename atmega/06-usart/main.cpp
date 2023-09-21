@@ -3,9 +3,8 @@
 #include <util/delay.h>
 #include <util/atomic.h>
 #include <avr/pgmspace.h>
-#include <avr/io.h>
 
-extern void USART0Init();
+extern void USART_Init();
 
 #define F(s) PSTR(s)
 
@@ -57,8 +56,8 @@ void setup()
 {
     ATOMIC_BLOCK( ATOMIC_FORCEON )
     {
-        // Настройка USART0.
-        USART0Init();
+        // Настройка USART.
+        USART_Init();
 
         // Настраиваем порт.
         SetBit( & DDRB, PB5 );

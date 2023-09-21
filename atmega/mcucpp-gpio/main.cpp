@@ -16,28 +16,34 @@
 
 // all IO stuff are in namespce
 using namespace Mcucpp::IO;
-// working with ports
 
+/// Working with ports.
 void Ports()
 {
     // set all pins in Portb to output
     Portb::SetConfiguration(0xff, Portb::Out); // -> DDRA = 0xff;
+
     // write a value to port
     Portb::Write(0x55);	// -> Portb = 0x55;	
+
     // set pins with mask
     Portb::Set(0xAA); 	// -> Portb |= 0xAA;
+
     // clear pins with mask
     Portb::Clear(0xF0); // -> Portb &= ~0xf0;
+
     // togle pins with mask
     Portb::Toggle(0xFF);// -> Portb ^= ~0xf0;
 
     uint8_t clearMask = 0x0F;
     uint8_t outputValue = 0x03;
-    Portb::ClearAndSet(clearMask, outputValue);// -> Portb = (Portb & ~clearMask) | outputValue;
-    // read out register
 
+    Portb::ClearAndSet( clearMask, outputValue );// -> Portb = (Portb & ~clearMask) | outputValue;
+    
+    // read out register
     // set all pins in Portb to input
-    Portb::SetConfiguration(0xff, Portb::In);
+    Portb::SetConfiguration( 0xff, Portb::In );
+
     uint8_t value = Portb::Read(); // -> 	uint8_t value = Portb
 
     Portb::Set( value );
@@ -52,32 +58,40 @@ void Ports()
     Portb::Set<0xAA>();
     Portb::Clear<0xF0>();
     Portb::Toggle<0xFF>();
+
     const uint8_t clearMask2 = 0x0F;
     const uint8_t outputValue2 = 0x03;
+
     Portb::ClearAndSet<clearMask2, outputValue2>();
 }
 
 
-// working with individual pins
+/// Working with individual pins.
 void IndividualPins()
 {
     // definition of one IO pin: pin 1 at Portb
     typedef TPin<Portb, 1> Pin1;
+
     // or you can use predefined short name
     // typedef Pb1 Pin1;
 
     // Configure pin as output
-    Pin1::SetConfiguration(Pin1::Port::Out); // DDRA |= (1 << PinNumber);
+    Pin1::SetConfiguration( Pin1::Port::Out ); // DDRA |= (1 << PinNumber);
+
     // set pin to logical 1
     Pin1::Set();
+
     // set pin to logical 0
     Pin1::Clear();
+
     // toggle pin state
     Pin1::Toggle();
+
     // Configure pin as input
     Pin1::SetConfiguration(Pin1::Port::In);
+
     // check pin state
-    if(Pin1::IsSet()) // ->> if(PINA & (1 << PinNumber))
+    if ( Pin1::IsSet() ) // ->> if(PINA & (1 << PinNumber))
     {
         // do something
     }
@@ -86,21 +100,27 @@ void IndividualPins()
     // ie. 'Set' will write logical 0 to pin and 'Clear' - logical 1.
     // reading (IsSet) is not inverted
     typedef InvertedPin<Portb, 1> Pin2;
+
     // or you can use predefined short name
     // typedef Pb1Inv Pin2;
 
     // Configure pin as output
     Pin2::SetConfiguration(Pin2::Port::Out);
+
     // set pin to logical 1
     Pin2::Set();
+
     // set pin to logical 0
     Pin2::Clear();
+
     // toggle pin state
     Pin2::Toggle();
+
     // Configure pin as input
     Pin2::SetConfiguration(Pin2::Port::In);
+
     // check pin state
-    if(Pin2::IsSet()) // ->> if(PINA & (1 << PinNumber))
+    if ( Pin2::IsSet() ) // ->> if(PINA & (1 << PinNumber))
     {
         // do something
     }
@@ -113,7 +133,6 @@ void PinLists()
     // Definition of group of IO pins which acts like a virtual IO port.
     // One group can contain up to 32 pins from different ports.
     // Pins in the group can have an arbitrary order.
-
     typedef PinList<Pb1, Pb0, Pb2, Pb1, Pc3, Pc4, Pc5> Group1;
 
     // You can include inverted pins to the group
@@ -124,12 +143,14 @@ void PinLists()
 
     // PinList has interface similar to IO port interface,
     // but is is a little simplified
-
     Group1::SetConfiguration(Group1::Out);
+
     // write a value to group
     Group1::Write(0x55);
+
     // set pins with mask
     Group1::Set(0xAA); 
+
     // clear pins with mask
     Group1::Clear(0xF0);
 
@@ -138,6 +159,7 @@ void PinLists()
 
     // read input register
     value = Group1::PinRead(); 
+
     Group1::Set(value);
 
     // If you have a constant value to write to group,
@@ -153,18 +175,23 @@ void PinLists()
     // Individual pins in group can be accessed in this way:
     // Set pin 1 in group (indexing starts whith 0)
     Group1::Pin<1>::Set();
+
     // you can 'typdef' is for best readability
     typedef Group1::Pin<1> Pin1;
+
     Pin1::Clear();
     
     // Toggle the last pin in the group
     const int lastPinIndex = Group1::Length - 1;
+
     Group1::Pin<lastPinIndex>::Toggle();
 
     // You can take a slice of group, it will be another PinList
     const int startingIndex = 4;
     const int sliceLenth = 3;
+
     typedef Group1::Slice<startingIndex, sliceLenth> LastTreePins;
+
     // Note that sliced pins will have they origin bit position in the input value.
     // ie. other pins in group will be just masked out
     LastTreePins::Write(0x70);

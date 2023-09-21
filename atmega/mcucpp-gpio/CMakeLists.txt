@@ -29,18 +29,20 @@ target_compile_options(${PROJECT_NAME} PRIVATE
     # оптимизация 
     $<$<CONFIG:DEBUG>:-O1>
     $<$<CONFIG:RELEASE>:-Os>
+    -flto
     -funsigned-char
     -ffunction-sections -fdata-sections
     # отладочная информация
     $<$<CONFIG:DEBUG>:-gdwarf-2 -gstrict-dwarf>
     # c/cxx флаги    
-    $<$<COMPILE_LANGUAGE:CXX>:-fpermissive -fno-exceptions -fno-rtti -funsigned-bitfields -fshort-enums>
+    $<$<COMPILE_LANGUAGE:CXX>:-fpermissive -fno-exceptions -fno-rtti -fno-unwind-tables -fno-threadsafe-statics -fstrict-enums>
     # GCC 12 AVR array subscript 0 is outside array bounds
     $<$<VERSION_GREATER_EQUAL:$<CXX_COMPILER_VERSION>,12.0>:--param=min-pagesize=0>
 )
 
 target_link_options(${PROJECT_NAME} PRIVATE
-    -mmcu=${MCU}    
+    -mmcu=${MCU}
+    -Wl,--relax
     #-Wl,--defsym=__TEXT_REGION_LENGTH__=32K
     #-Wl,--defsym=__DATA_REGION_LENGTH__=2K
     #-Wl,--defsym=__EEPROM_REGION_LENGTH__=1K

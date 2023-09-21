@@ -16,7 +16,11 @@ add_executable(${PROJECT_NAME} timer.cpp usart.cpp main.cpp)
 
 target_link_libraries(${PROJECT_NAME} m)
 target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
-target_compile_definitions(${PROJECT_NAME} PRIVATE F_CPU=16000000UL)
+
+target_compile_definitions(${PROJECT_NAME} PRIVATE 
+    F_CPU=16000000UL 
+    $<$<CONFIG:RELEASE>:NDEBUG>
+)
 
 target_compile_options(${PROJECT_NAME} PRIVATE    
     -mmcu=${MCU}    
@@ -25,24 +29,26 @@ target_compile_options(${PROJECT_NAME} PRIVATE
     # оптимизация 
     $<$<CONFIG:DEBUG>:-O1>
     $<$<CONFIG:RELEASE>:-Os>
-    -flto
+    #-flto
     -funsigned-char
-    -fpack-struct
+    #-fpack-struct
     -ffunction-sections -fdata-sections
     # отладочная информация
     $<$<CONFIG:DEBUG>:-gdwarf-2 -gstrict-dwarf>
     # c/cxx флаги    
-    $<$<COMPILE_LANGUAGE:CXX>:-fpermissive -fno-exceptions -fno-rtti -funsigned-bitfields -fshort-enums>
+    $<$<COMPILE_LANGUAGE:CXX>:-fpermissive -fno-exceptions -fno-rtti -fno-unwind-tables -fno-threadsafe-statics -fno-use-cxa-atexit -fstrict-enums>
     # GCC 12 AVR array subscript 0 is outside array bounds
     $<$<VERSION_GREATER_EQUAL:$<CXX_COMPILER_VERSION>,12.0>:--param=min-pagesize=0>
 )
 
 target_link_options(${PROJECT_NAME} PRIVATE
-    -mmcu=${MCU}    
-    -Wl,--defsym=__TEXT_REGION_LENGTH__=32K
-    -Wl,--defsym=__DATA_REGION_LENGTH__=2K
-    -Wl,--defsym=__EEPROM_REGION_LENGTH__=1K
+    -mmcu=${MCU}
+    -Wl,--relax
+    #-Wl,--defsym=__TEXT_REGION_LENGTH__=32K
+    #-Wl,--defsym=__DATA_REGION_LENGTH__=2K
+    #-Wl,--defsym=__EEPROM_REGION_LENGTH__=1K
     -Wl,-Map=${PROJECT_NAME}.map,--cref,--gc-sections,--print-memory-usage
+    -Wl,-u,vfprintf -lprintf_min -lprintf_flt    
     #-Wl,--verbose
 )
 

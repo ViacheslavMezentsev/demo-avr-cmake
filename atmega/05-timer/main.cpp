@@ -1,20 +1,20 @@
 #include <stdio.h>
-#include <util/atomic.h>
 #include <compat/ina90.h>
 #include <compat/deprecated.h>
+#include <util/atomic.h>
 #include <avr/pgmspace.h>
-#include <avr/io.h>
 
 extern void Timer0Init();
-extern void USART0Init();
+extern void USART_Init();
 extern unsigned long millis();
 
 #define F(s) PSTR(s)
 
+#define SETBIT(x,y) ( (x) |= ( 1U << (y)) )
 #define TOGGLE(x,y) ( (x) ^= ( 1U << (y)) )
 #define CHECKBIT(x,y) ( (x) & ( 1U << (y) ) )
 
-unsigned long msec;
+unsigned long msec { millis() };
 
 /**
  * @brief   Выполняет настройку.
@@ -25,12 +25,10 @@ void setup()
     // Настройка таймера 0.
     Timer0Init();
 
-    // Настройка USART0.
-    USART0Init();
+    // Настройка USART.
+    USART_Init();
 
-    sbi( DDRB, PB5 );
-
-    msec = millis();
+    SETBIT( DDRB, PB5 );
 }
 
 
@@ -45,7 +43,7 @@ void loop()
         msec = millis();
 
         // Мигаем светодиодом.
-        TOGGLE( PORTB, PB5 );
+        SETBIT( PINB, PB5 );
 
         // Ожидаем выполнение команды.
         _NOP();

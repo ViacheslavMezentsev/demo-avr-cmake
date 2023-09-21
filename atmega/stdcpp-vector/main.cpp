@@ -2,13 +2,12 @@
 #include <cstdio>
 #include <algorithm>
 
-extern void USART0Init();
+extern void USART_Init();
 
 int main()
 {
-    USART0Init();
+    USART_Init();
 
-    // output on Uart0, see common/uart.cpp
     puts( "AVR libstdc++ vector test\n" );
 
     std::vector<uint8_t> test{ 10, 1, 2, 42, 3 };
@@ -28,7 +27,5 @@ int main()
 
     puts( "\n" );
 
-    while (1)
-    {
-    }
+    while (1);
 }

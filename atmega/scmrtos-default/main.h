@@ -12,5 +12,6 @@
 #define F(s) PSTR(s)
 
 extern uint32_t seconds;
+extern void USART_Init();
 
 using namespace OS;

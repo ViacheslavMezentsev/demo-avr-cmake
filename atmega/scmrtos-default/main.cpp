@@ -1,7 +1,5 @@
 #include "main.h"
 
-extern void USART0Init();
-
 tick_count_t mseconds = 0;
 uint32_t seconds = 0;
 
@@ -37,8 +35,8 @@ int main()
     // Запрещаем прерывания от системного таймера.
     OS::lock_system_timer();
 
-    // Настройка последовательного порта USART0.
-    USART0Init();
+    // Настройка последовательного порта USART.
+    USART_Init();
 
     // Настраиваем таймер для scmRTOS.
     TIMER_CS_REG = ( 1 << WGM12 ) | ( 1 << CS11 ) | ( 1 << CS10 );

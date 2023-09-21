@@ -10,5 +10,10 @@
     "executable": "${command:cmake.buildDirectory}/${workspaceFolderBasename}.elf",
     "device": "m328p",
     "comport": "COM37",
-    "combaud": "57600"
+    "combaud": "57600",
+    "files.associations": {
+        "Makefile": "makefile",
+        "*.inc": "plaintext",
+        "chrono": "cpp"
+    }
 }

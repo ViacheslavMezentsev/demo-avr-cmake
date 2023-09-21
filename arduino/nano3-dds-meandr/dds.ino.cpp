@@ -9,8 +9,8 @@ uint16_t PhaseShift { 12 };     ///< код частоты
  */
 ISR( ADC_vect )
 {
-    // Считываем только значимые 8 бит - значение из диапазона 0...255.
-    PhaseShift = ADCH;
+    // Считываем старший байт значения АЦП.
+    PhaseShift = ( ADCH << 4U ) + 1U;
 }
 
 
@@ -23,11 +23,11 @@ void ADC_init()
     // Сбрасываем регистр ADCSRB.
     ADCSRB = 0;
 
-    // Опорное напряжение - ИСТОЧНИК ПИТАНИЯ ARDUINO.
+    // Опорное напряжение: источник питания мк.
     bitClear( ADMUX, REFS1 );
     bitSet( ADMUX, REFS0 );
 
-    // формат результата: 8 бит ADCH + 2 бита ADCL
+    // Формат результата: 8 бит ADCH + 2 бита ADCL
     bitSet( ADMUX, ADLAR );
 
     // Выбираем КАНАЛ АЦП = AD0
@@ -42,7 +42,7 @@ void ADC_init()
     // Автозапуск ВКЛЮЧЕН
     bitSet( ADCSRA, ADATE );
 
-    // запрещаем прерывания АЦП
+    // Запрещаем прерывания АЦП.
     bitClear( ADCSRA, ADIE );
 
     // Предделитель на 128.
@@ -103,11 +103,11 @@ int main()
     // Подключаем прерывания для кнопки.
     attachPCINT( digitalPinToPCINT( pin ), OnButtonPressed, FALLING );
 
-    // Бесконечный цикл вывода сигнала.
+    // Формируем сигнал.
     while ( true ) 
     {
-        PORTD = pgm_read_byte( sinewave + highByte( PhaseAccum ) );
+        PORTD = sinewave[ PhaseAccum ];
 
-        PhaseAccum += ( PhaseShift << 4 ) + 1;
+        PhaseAccum += PhaseShift;
     }
 }

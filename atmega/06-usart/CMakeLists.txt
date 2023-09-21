@@ -16,7 +16,11 @@ add_executable(${PROJECT_NAME} usart.cpp main.cpp)
 
 target_link_libraries(${PROJECT_NAME} m)
 target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
-target_compile_definitions(${PROJECT_NAME} PRIVATE F_CPU=16000000UL)
+
+target_compile_definitions(${PROJECT_NAME} PRIVATE 
+    F_CPU=16000000UL 
+    $<$<CONFIG:RELEASE>:NDEBUG>
+)
 
 target_compile_options(${PROJECT_NAME} PRIVATE    
     -mmcu=${MCU}    
@@ -37,7 +41,8 @@ target_compile_options(${PROJECT_NAME} PRIVATE
 )
 
 target_link_options(${PROJECT_NAME} PRIVATE
-    -mmcu=${MCU}  
+    -mmcu=${MCU}
+    -Wl,--relax
     #-Wl,--defsym=__TEXT_REGION_LENGTH__=32K
     #-Wl,--defsym=__DATA_REGION_LENGTH__=2K
     #-Wl,--defsym=__EEPROM_REGION_LENGTH__=1K

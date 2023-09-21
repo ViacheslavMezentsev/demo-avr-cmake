@@ -30,10 +30,11 @@ target_compile_definitions(${PROJECT_NAME} PRIVATE F_CPU=16000000UL)
 target_compile_options(${PROJECT_NAME} PRIVATE    
     -mmcu=${MCU}    
     # предупреждения 
-    -Wshadow -Wcast-qual -Wpointer-arith -Wundef
+    -W -Wall
     # оптимизация 
     $<$<CONFIG:DEBUG>:-O1>
     $<$<CONFIG:RELEASE>:-Os>
+    -flto
     -funsigned-char
     -ffunction-sections -fdata-sections
     # отладочная информация
@@ -45,10 +46,11 @@ target_compile_options(${PROJECT_NAME} PRIVATE
 )
 
 target_link_options(${PROJECT_NAME} PRIVATE
-    -mmcu=${MCU}  
-    -Wl,--defsym=__TEXT_REGION_LENGTH__=32K
-    -Wl,--defsym=__DATA_REGION_LENGTH__=2K
-    -Wl,--defsym=__EEPROM_REGION_LENGTH__=1K
+    -mmcu=${MCU}
+    -Wl,--relax
+    #-Wl,--defsym=__TEXT_REGION_LENGTH__=32K
+    #-Wl,--defsym=__DATA_REGION_LENGTH__=2K
+    #-Wl,--defsym=__EEPROM_REGION_LENGTH__=1K
     -Wl,-Map=${PROJECT_NAME}.map,--cref,--gc-sections,--print-memory-usage
     -Wl,-u,vfprintf -lprintf_min -lprintf_flt
     #-Wl,--verbose

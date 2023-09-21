@@ -1,10 +1,9 @@
 #include <cstdio>
 #include <util/delay.h>
-#include <util/atomic.h>
 #include <avr/io.h>
 #include "etl/string.h"
 
-extern void USART0Init();
+extern void USART_Init();
 
 etl::string<32> hello( "Hello from AVR!" );
 
@@ -15,8 +14,8 @@ etl::string<32> hello( "Hello from AVR!" );
  */
 void setup()
 {
-    // Настройка USART0.
-    USART0Init();
+    // Настройка USART.
+    USART_Init();
 }
 
 
@@ -38,10 +37,7 @@ void loop()
  */
 int main( void )
 {
-    ATOMIC_BLOCK( ATOMIC_FORCEON )
-    {
-        setup();
-    }
+    setup();
 
     while (1)
     {

@@ -13,6 +13,8 @@
     "combaud": "57600",
     "files.associations": {
         "Makefile": "makefile",
-        "cstdio": "cpp"
+        "*.inc": "plaintext",
+        "cstdio": "cpp",
+        "array": "cpp"
     }
 }

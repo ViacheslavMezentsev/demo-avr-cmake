@@ -51,6 +51,7 @@ void setup()
     Timer0::Start( Timer0::Div64 );
     Timer0::EnableInterrupt();
 
+    // Настраиваем счётчик на 1 секунду.
     Counter.Set( 1000000UL / MICROSECONDS_PER_TIMER0_OVERFLOW );    
 }
 

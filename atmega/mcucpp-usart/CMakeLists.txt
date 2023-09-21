@@ -29,6 +29,7 @@ target_compile_options(${PROJECT_NAME} PRIVATE
     # оптимизация 
     $<$<CONFIG:DEBUG>:-O1>
     $<$<CONFIG:RELEASE>:-Os>
+    -flto
     -funsigned-char
     -fpack-struct
     -ffunction-sections -fdata-sections
@@ -41,7 +42,8 @@ target_compile_options(${PROJECT_NAME} PRIVATE
 )
 
 target_link_options(${PROJECT_NAME} PRIVATE
-    -mmcu=${MCU}    
+    -mmcu=${MCU}
+    -Wl,--relax
     #-Wl,--defsym=__TEXT_REGION_LENGTH__=32K
     #-Wl,--defsym=__DATA_REGION_LENGTH__=2K
     #-Wl,--defsym=__EEPROM_REGION_LENGTH__=1K

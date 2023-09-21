@@ -3,7 +3,7 @@
 #include <cstdint>
 #include <limits>
 
-extern void USART0Init();
+extern void USART_Init();
 
 template<typename RealValueType, typename RealFunctionType>
 auto integral( const RealValueType& a, const RealValueType& b, const RealValueType& tol, RealFunctionType real_function ) 
@@ -103,8 +103,8 @@ auto cyl_bessel_j( const std::uint_fast8_t n, const FloatingPointType& x ) noexc
 
 auto main() -> int
 {
-    // Настройка USART0.
-    USART0Init();
+    // Настройка USART.
+    USART_Init();
 
     using my_float_type = long double;
 

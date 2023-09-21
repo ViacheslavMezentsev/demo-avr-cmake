@@ -9,40 +9,10 @@
  */
 // ----------------------------------------------------------------------------
 
+#include <avr/interrupt.h>
+#include <avr/wdt.h>
 #include <chrono>
 
-#include <avr/interrupt.h>
-#include <avr/io.h>
-#include <avr/wdt.h>
-
-static void app_hw_init();
-
-int main()
-{
-    // Initialize the application hardware. This includes WDT, PORTB.5 and TIMER0.
-    app_hw_init();
-
-    for(;;)
-    {
-        // Toggle the LED on portb.5.
-        PINB = (1U << PORTB5);
-
-        // Make use of <chrono> to insert a 1s delay (i.e., 1000 milliseconds).
-        const auto start = std::chrono::high_resolution_clock::now();
-
-        auto delta = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::milliseconds());
-
-        do
-        {
-            delta =
-            std::chrono::duration_cast<std::chrono::milliseconds>
-            (
-                std::chrono::high_resolution_clock::now() - start
-            );
-        }
-        while(delta < std::chrono::milliseconds(1000U));
-    }
-}
 
 static void app_hw_init()
 {
@@ -83,6 +53,32 @@ static void app_hw_init()
     sei();
 }
 
+
+int main()
+{
+    // Initialize the application hardware. This includes WDT, PORTB.5 and TIMER0.
+    app_hw_init();
+
+    for(;;)
+    {
+        using namespace std::chrono;
+
+        // Toggle the LED on portb.5.
+        PINB |= _BV( PB5 );
+
+        // Make use of <chrono> to insert a 1s delay (i.e., 1000 milliseconds).
+        const auto start = high_resolution_clock::now();
+
+        auto delta = duration_cast<milliseconds>( milliseconds() );
+
+        do
+        {
+            delta = duration_cast<milliseconds>( high_resolution_clock::now() - start );
+        }
+        while ( delta < milliseconds( 1000U ) );
+    }
+}
+
 namespace {
 
 std::uint64_t gpt_system_tick;
@@ -116,13 +112,12 @@ std::uint64_t gpt_get_time_elapsed()
 
     return consistent_microsecond_tick;
 }
-
 }
 
-ISR(TIMER0_OVF_vect)
+ISR( TIMER0_OVF_vect )
 {
     // Increment the 64-bit system tick with 0x80, representing 128 microseconds.
-    gpt_system_tick += UINT8_C(0x80);
+    gpt_system_tick += UINT8_C( 0x80 );
 }
 
 auto std::chrono::high_resolution_clock::now() noexcept -> std::chrono::high_resolution_clock::time_point
@@ -140,11 +135,8 @@ auto std::chrono::high_resolution_clock::now() noexcept -> std::chrono::high_res
 
     // Obtain a time-point with microsecond resolution.
     const auto time_point_in_microseconds =
-    microsecond_time_point_type
-    (
-        microseconds(gpt_get_time_elapsed())
-    );
+        microsecond_time_point_type( microseconds( gpt_get_time_elapsed() ) );
 
     // And return the corresponding duration with microsecond resolution.
-    return time_point_cast<duration>(time_point_in_microseconds);
+    return time_point_cast<duration>( time_point_in_microseconds );
 }
