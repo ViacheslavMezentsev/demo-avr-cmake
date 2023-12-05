@@ -63,6 +63,10 @@ using ds1302 = modm::Ds1302<ds1302_config>;
  * /endcode
  */
 
+/**
+ * @brief   Точка входа.
+ * 
+ */
 int main()
 {
     Board::initialize();
@@ -104,6 +108,7 @@ int main()
         if ( timeout.execute() )
         {
             modm::ds1302::Data rtc_data;
+            
             ds1302::readRtc( rtc_data );
 			
             uint8_t seconds = rtc_data.getSeconds();
@@ -130,6 +135,4 @@ int main()
             blinkTimer.restart();
         }
     };
-
-    return 0;
 }

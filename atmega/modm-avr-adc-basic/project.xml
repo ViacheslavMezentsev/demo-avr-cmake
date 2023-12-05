@@ -13,7 +13,7 @@
     <module>modm:platform:core</module>
     <module>modm:platform:gpio</module>
     <module>modm:platform:uart:0</module>
-    <module>modm:build:scons</module>
+    <!--<module>modm:build:scons</module>-->
     <module>modm:build:cmake</module>
   </modules>
 </library>

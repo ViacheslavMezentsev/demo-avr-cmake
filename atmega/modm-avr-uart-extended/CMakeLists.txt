@@ -33,6 +33,7 @@ target_sources(${PROJECT_NAME} PRIVATE
 target_link_libraries(${PROJECT_NAME} m)
 
 target_include_directories(${PROJECT_NAME} PRIVATE
+    ${TOOLCHAIN_INC_PATH}
     ${CMAKE_CURRENT_SOURCE_DIR}/modm/ext
     ${CMAKE_CURRENT_SOURCE_DIR}/modm/src
 )

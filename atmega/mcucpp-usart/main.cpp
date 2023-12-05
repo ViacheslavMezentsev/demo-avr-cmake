@@ -1,7 +1,6 @@
 #include <avr/interrupt.h>
 #include <tiny_ostream.h>
 #include <iopins.h>
-#include <pinlist.h>
 #include <usart.h>
 #include <delay.h>
 
@@ -14,7 +13,7 @@ typedef Usart1 MyUsart;
 
 class UsartOut
 {
-    public:
+public:
     void put( char c )
     {
         MyUsart::Write(c);
@@ -47,15 +46,9 @@ void loop()
 {
     Led::Toggle();
 
-    if ( Led::IsSet() )
-    {
-        cout << "Len on" << endl;
-    }
-    else
-    {
-        cout << "Len off" << endl;
-    }
+    cout << ( Led::IsSet() ? "Led on\r" : "Led off\r" ) << endl;
 
+    // Выполняем синхронную задержку.
     delay_ms<1000, F_CPU>();
 }
 
@@ -67,8 +60,6 @@ void loop()
 int main()
 {
     setup();
-
-    sei();
 
     while (1)
     {

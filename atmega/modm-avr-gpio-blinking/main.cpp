@@ -15,8 +15,12 @@
 using namespace modm::platform;
 using namespace std::chrono_literals;
 
-typedef GpioOutputB5 Led;
+typedef GpioB5 Led;
 
+/**
+ * @brief   Точка входа.
+ * 
+ */
 int main()
 {
     Led::setOutput();

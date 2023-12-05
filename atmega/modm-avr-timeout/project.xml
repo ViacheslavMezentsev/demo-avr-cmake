@@ -11,7 +11,7 @@
     <module>modm:platform:clock</module>
     <module>modm:platform:gpio</module>
     <module>modm:processing:timer</module>
-    <module>modm:build:scons</module>
+    <!--<module>modm:build:scons</module>-->
     <module>modm:build:cmake</module>
   </modules>
 </library>

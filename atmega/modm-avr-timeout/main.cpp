@@ -17,17 +17,23 @@
 using namespace modm::platform;
 using namespace std::chrono_literals;
 
-// create a output device for the led
-typedef GpioOutputB5 Led;
+// Определяем вывод для светодиода.
+typedef GpioB0 Led;
 
-
+/**
+ * @brief   Точка входа.
+ * 
+ */
 int main()
 {
+    // Настраиваем аппаратный таймер.
     SystemClock::enable();
+
+    // Устанавливаем начальный уровень для светодиода.
     Led::setOutput();
     Led::reset();
 
-    // enable interrupts
+    // Разрешаем глобальные прерывания.
     enableInterrupts();
 
     modm::ShortTimeout timeout( 200ms );

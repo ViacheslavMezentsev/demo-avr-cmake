@@ -16,23 +16,27 @@
 using namespace modm::literals;
 using namespace modm::platform;
 
+/**
+ * @brief   Точка входа.
+ * 
+ */
 int main()
 {
-	Uart0::connect<GpioOutputD1::Txd, GpioInputD0::Rxd>();
-	Uart0::initialize<SystemClock, 19200_Bd>();
+    Uart0::connect<GpioOutputD1::Txd, GpioInputD0::Rxd>();
+    Uart0::initialize<SystemClock, 19200_Bd>();
 
-	// Enable interrupts, this is needed for every buffered UART
-	enableInterrupts();
+    // Разрешаем глобальные прерывания.
+    enableInterrupts();
 
-	// Write some characters
-	Uart0::write('H');
-	Uart0::write('e');
-	Uart0::write('l');
-	Uart0::write('l');
-	Uart0::write('o');
-	Uart0::write('\n');
+    // Выводим символы в терминал.
+    Uart0::write( 'H' );
+    Uart0::write( 'e' );
+    Uart0::write( 'l' );
+    Uart0::write( 'l' );
+    Uart0::write( 'o' );
+    Uart0::write( '\n' );
 
-	while (true)
-	{
-	}
+    while ( true )
+    {
+    }
 }

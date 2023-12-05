@@ -14,6 +14,10 @@
 
 using namespace modm::platform;
 
+/**
+ * @brief   Точка входа.
+ * 
+ */
 int main()
 {
     Board::initialize();

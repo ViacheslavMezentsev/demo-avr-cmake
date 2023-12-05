@@ -13,28 +13,32 @@
 
 #include <modm/platform.hpp>
 #include <modm/io/iostream.hpp>
-using namespace modm::literals;
 
+using namespace modm::literals;
 using namespace modm::platform;
 
+/**
+ * @brief   Точка входа.
+ * 
+ */
 int main()
 {
-	Uart0::connect<GpioOutputD1::Txd, GpioInputD0::Rxd>();
-	Uart0::initialize<SystemClock, 19200_Bd>();
+    Uart0::connect<GpioOutputD1::Txd, GpioInputD0::Rxd>();
+    Uart0::initialize<SystemClock, 19200_Bd>();
 
-	// Enable interrupts, this is needed for every buffered UART
-	enableInterrupts();
+    // Разрешаем глобальные прерывания.
+    enableInterrupts();
 
-	// Create a IOStream for complex formatting tasks
-	modm::IODeviceWrapper< Uart0, modm::IOBuffer::BlockIfFull > device;
-	modm::IOStream stream(device);
+    // Создаём поток ввода-вывода.
+    modm::IODeviceWrapper<Uart0, modm::IOBuffer::BlockIfFull> serial;
+    modm::IOStream stream( serial );
 
-	// Now we can print numbers and other objects to the stream
-	// The following will result in the string "24 is a nice number!\n" with
-	// the number formatted as ASCII text.
-	stream << 24 << " is a nice number!" << modm::endl;
+    // Now we can print numbers and other objects to the stream
+    // The following will result in the string "24 is a nice number!\n" with
+    // the number formatted as ASCII text.
+    stream << 24 << " is a nice number!" << modm::endl;
 
-	while (true)
-	{
-	}
+    while ( true )
+    {
+    }
 }

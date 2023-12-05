@@ -19,15 +19,13 @@ add_subdirectory(stdcpp)
 target_sources(${PROJECT_NAME} PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/modm/ext/printf/printf.c
 
-    ${CMAKE_CURRENT_SOURCE_DIR}/modm/src/modm/io/iostream.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/modm/src/modm/io/iostream_printf.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/modm/src/modm/board/board_fuses.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/modm/src/modm/board/board_serial.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/modm/src/modm/architecture/driver/atomic/flag.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/modm/src/modm/board/board_fuses.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/modm/src/modm/board/board_serial.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/modm/src/modm/io/iostream.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/modm/src/modm/io/iostream_printf.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/modm/src/modm/board/board_fuses.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/modm/src/modm/board/board_serial.cpp    
+    ${CMAKE_CURRENT_SOURCE_DIR}/modm/src/modm/board/board_fuses.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/modm/src/modm/board/board_serial.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/modm/src/modm/math/utils/avr/sqrt32.sx
     ${CMAKE_CURRENT_SOURCE_DIR}/modm/src/modm/math/utils/bit_operation.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/modm/src/modm/platform/clock/clock.cpp
@@ -41,6 +39,7 @@ target_sources(${PROJECT_NAME} PRIVATE
 target_link_libraries(${PROJECT_NAME} m)
 
 target_include_directories(${PROJECT_NAME} PRIVATE
+    ${TOOLCHAIN_INC_PATH}
     ${CMAKE_CURRENT_SOURCE_DIR}/modm/ext
     ${CMAKE_CURRENT_SOURCE_DIR}/modm/src
 )

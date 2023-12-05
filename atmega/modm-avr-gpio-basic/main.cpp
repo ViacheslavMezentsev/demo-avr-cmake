@@ -15,15 +15,23 @@
 
 using namespace modm::platform;
 
-typedef GpioOutputB0 Led;
-// create a wrapper for a output pin
-typedef GpioInverted<GpioOutputB1> LedInverted;
+// Определяем обычный вывод для светодиода.
+typedef GpioB0 Led;
 
+// Определяем инвертированный вывод для светодиода.
+typedef GpioInverted<GpioB1> LedInverted;
+
+/**
+ * @brief   Точка входа.
+ * 
+ */
 int main()
 {
+    // Зажигаем светодиод с прямой логикой вывода.
     Led::setOutput();
     Led::set();
 
+    // Зажигаем светодиод с инвертированной логикой вывода.
     LedInverted::setOutput( modm::Gpio::Low );
 
     while ( true )

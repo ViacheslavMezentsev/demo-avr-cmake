@@ -1,9 +1,6 @@
-#include <avr/interrupt.h>
 #include <delay.h>
 
-using namespace Mcucpp;
-
-unsigned char count {0};
+volatile uint8_t count {0};
 
 /**
  * @brief   Выполняет настройку.
@@ -23,7 +20,8 @@ void loop()
 {
     count++;
 
-    delay_ms<1000, F_CPU>();
+    // Выполняем синхронную задержку.
+    Mcucpp::delay_ms<1000, F_CPU>();
 }
 
 
@@ -34,8 +32,6 @@ void loop()
 int main()
 {
     setup();
-
-    sei();
 
     while (1)
     {

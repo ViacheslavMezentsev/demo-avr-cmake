@@ -7,7 +7,6 @@
 
 using namespace Mcucpp;
 using namespace Timers;
-using namespace IO;
 
 #define clockCyclesPerMicrosecond()     ( F_CPU / 1000000UL )
 #define clockCyclesToMicroseconds(a)    ( (a) / clockCyclesPerMicrosecond() )
@@ -17,7 +16,7 @@ using namespace IO;
 // а обработчик переполнения вызывается каждые 256 тактов.
 #define MICROSECONDS_PER_TIMER0_OVERFLOW ( clockCyclesToMicroseconds( 64 * 256 ) )
 
-typedef Pb5 Led;
+typedef IO::Pb5 Led;
 TimeoutCounter<uint16_t> Counter {0};
 
 /**
@@ -71,6 +70,7 @@ void loop()
  */
 int main()
 {
+    // Критическая секция с принудительной установкой глобальных прерываний на выходе.
     ATOMIC_BLOCK( ATOMIC_FORCEON )
     {
         setup();

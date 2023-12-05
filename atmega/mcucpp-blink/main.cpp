@@ -1,9 +1,7 @@
-#include <avr/interrupt.h>
 #include <iopins.h>
 #include <delay.h>
 
-using namespace Mcucpp;
-using namespace IO;
+using namespace Mcucpp::IO;
 
 typedef Pb5 Led;
 
@@ -27,7 +25,8 @@ void loop()
 {
     Led::Toggle();
 
-    delay_ms<1000, F_CPU>();
+    // Выполняем синхронную задержку.
+    Mcucpp::delay_ms<1000, F_CPU>();
 }
 
 
@@ -38,8 +37,6 @@ void loop()
 int main()
 {
     setup();
-
-    sei();
 
     while (1)
     {

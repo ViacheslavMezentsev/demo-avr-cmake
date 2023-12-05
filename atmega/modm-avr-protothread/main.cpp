@@ -19,95 +19,99 @@
 using namespace modm::platform;
 using namespace std::chrono_literals;
 
-typedef GpioOutputB0 LedGreen;
-typedef GpioOutputB1 LedRed;
+typedef GpioB0 LedGreen;
+typedef GpioB1 LedRed;
 
 class BlinkingLightGreen : public modm::pt::Protothread
 {
-public:
-	bool
-	run()
-	{
-		PT_BEGIN();
-
-		// set everything up
-		LedGreen::setOutput();
-		LedGreen::set();
-
-		while (true)
-		{
-			LedGreen::set();
-
-			timeout.restart(100ms);
-			PT_WAIT_UNTIL(timeout.isExpired());
-
-			LedGreen::reset();
-
-			timeout.restart(600ms);
-			PT_WAIT_UNTIL(timeout.isExpired());
-		}
-
-		PT_END();
-	}
-
 private:
-	modm::ShortTimeout timeout;
+    modm::ShortTimeout timeout;
+
+public:
+    bool run()
+    {
+        PT_BEGIN();
+
+        // Настраиваем на выход.
+        LedGreen::setOutput();
+        LedGreen::set();
+
+        while ( true )
+        {
+            LedGreen::set();
+
+            timeout.restart( 100ms );
+            PT_WAIT_UNTIL( timeout.isExpired() );
+
+            LedGreen::reset();
+
+            timeout.restart( 600ms );
+            PT_WAIT_UNTIL( timeout.isExpired() );
+        }
+
+        PT_END();
+    }
 };
 
 class BlinkingLightRed : public modm::pt::Protothread
 {
-public:
-	bool
-	run()
-	{
-		PT_BEGIN();
-
-		// set everything up
-		LedRed::setOutput();
-		LedRed::set();
-
-		while (true)
-		{
-			LedRed::set();
-
-			timeout.restart(200ms);
-			PT_WAIT_UNTIL(timeout.isExpired());
-
-			LedRed::reset();
-
-			timeout.restart(300ms);
-			PT_WAIT_UNTIL(timeout.isExpired());
-
-			LedRed::set();
-
-			timeout.restart(200ms);
-			PT_WAIT_UNTIL(timeout.isExpired());
-
-			LedRed::reset();
-
-			timeout.restart(1s);
-			PT_WAIT_UNTIL(timeout.isExpired());
-		}
-
-		PT_END();
-	}
-
 private:
-	modm::ShortTimeout timeout;
+    modm::ShortTimeout timeout;
+
+public:
+    bool run()
+    {
+        PT_BEGIN();
+
+        // Настраиваем на выход.
+        LedRed::setOutput();
+        LedRed::set();
+
+        while ( true )
+        {
+            LedRed::set();
+
+            timeout.restart( 200ms );
+            PT_WAIT_UNTIL( timeout.isExpired() );
+
+            LedRed::reset();
+
+            timeout.restart( 300ms );
+            PT_WAIT_UNTIL( timeout.isExpired() );
+
+            LedRed::set();
+
+            timeout.restart( 200ms );
+            PT_WAIT_UNTIL( timeout.isExpired() );
+
+            LedRed::reset();
+
+            timeout.restart( 1s );
+            PT_WAIT_UNTIL( timeout.isExpired() );
+        }
+
+        PT_END();
+    }
 };
 
+
+/**
+ * @brief   Точка входа.
+ * 
+ */
 int main()
 {
-	SystemClock::enable();
-	
-	enableInterrupts();
+	// Настройка таймера задач.
+    SystemClock::enable();
 
-	BlinkingLightGreen greenLight;
-	BlinkingLightRed redLight;
+    enableInterrupts();
 
-	while (true)
-	{
-		greenLight.run();
-		redLight.run();
-	}
+    BlinkingLightGreen greenLight;
+    BlinkingLightRed redLight;
+
+    while ( true )
+    {
+        greenLight.run();
+        redLight.run();
+    }
 }

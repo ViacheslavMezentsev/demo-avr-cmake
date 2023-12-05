@@ -10,7 +10,7 @@
   <modules>
     <module>modm:io</module>
     <module>modm:processing:timer</module>
-    <module>modm:build:scons</module>
+    <!--<module>modm:build:scons</module>-->
     <module>modm:build:cmake</module>
   </modules>
 </library>
