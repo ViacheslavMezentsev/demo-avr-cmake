@@ -1,7 +1,7 @@
 {
     "env": {
         "defaultIncludePath": [
-            "${env:USERPROFILE}/scoop/apps/gcc-arm-none-eabi/current/avr-gcc/current/avr/**"
+            "${env:USERPROFILE}/scoop/apps/avr-gcc/current/avr/include/**"
         ],
         "defaultDefines": [ "__GNUC__" ],
         "compiler": "${env:USERPROFILE}/scoop/apps/avr-gcc/current/bin/avr-gcc.exe"

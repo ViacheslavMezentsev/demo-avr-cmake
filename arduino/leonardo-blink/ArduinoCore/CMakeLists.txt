@@ -62,7 +62,8 @@ target_compile_options(ArduinoCore PRIVATE
     # оптимизация 
     $<$<CONFIG:DEBUG>:-O1>
     $<$<CONFIG:RELEASE>:-Os>
-    -flto
+    #-flto
+    -funsigned-char
     -ffunction-sections -fdata-sections
     # отладочная информация
     $<$<CONFIG:DEBUG>:-gdwarf-2 -gstrict-dwarf>
