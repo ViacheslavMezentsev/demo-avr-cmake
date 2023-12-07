@@ -9,7 +9,7 @@
   <modules>
     <module>modm:architecture:delay</module>
     <module>modm:processing:timer</module>
-    <module>modm:build:scons</module>
+    <!--<module>modm:build:scons</module>-->
     <module>modm:build:cmake</module>
   </modules>
 </library>

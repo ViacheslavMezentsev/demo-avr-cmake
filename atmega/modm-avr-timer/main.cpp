@@ -12,6 +12,10 @@
 #include <modm/board.hpp>
 #include <modm/processing.hpp>
 
+/**
+ * @brief   Точка входа.
+ * 
+ */
 int main()
 {
     Board::initialize();
@@ -21,10 +25,11 @@ int main()
     modm::PrecisePeriodicTimer ptmr( 0.500990s );
     modm::PeriodicTimer tmr( 0.500990s );
 
-    for ( int ii = 0; ii < 20; ii++ )
+    for ( int n = 0; n < 20; n++ )
     {
         LedD13::toggle();
-        modm::delay( std::chrono::milliseconds( 10 * ii ) );
+
+        modm::delay( std::chrono::milliseconds( 10 * n ) );
     }
 
     uint32_t ms_counter {0};
@@ -56,6 +61,7 @@ int main()
         if ( ptmr.execute() )
         {
             LedD13::set();
+
             MODM_LOG_INFO << "loop: " << counter++ << modm::endl;
         }
 
