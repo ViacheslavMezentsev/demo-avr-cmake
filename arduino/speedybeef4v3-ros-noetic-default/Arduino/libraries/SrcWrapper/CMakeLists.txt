@@ -1,0 +1,233 @@
+# v3.21 implemented semantic changes regarding $<TARGET_OBJECTS:...>
+# See https://cmake.org/cmake/help/v3.21/command/target_link_libraries.html#linking-object-libraries-via-target-objects
+cmake_minimum_required(VERSION 3.21)
+
+add_library(SrcWrapperLib OBJECT)
+
+add_library(SrcWrapper ALIAS SrcWrapperLib)
+
+target_compile_definitions(SrcWrapperLib PRIVATE
+    STM32F4xx
+    STM32F405xx
+    USE_HAL_DRIVER 
+    USE_FULL_LL_DRIVER
+    HAL_PCD_MODULE_ENABLED
+    HAL_UART_MODULE_ENABLED    
+    ARDUINO=10819
+    ARDUINO_GENERIC_F405RGTX
+    ARDUINO_ARCH_STM32
+    BOARD_NAME="GENERIC_F405RGTX"
+    VARIANT_H="variant_generic.h"
+    VECT_TAB_OFFSET=0x0 
+)
+
+target_include_directories(SrcWrapperLib PUBLIC
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/cores/arduino
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/cores/arduino
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/cores/arduino/stm32
+
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/system/STM32F4xx
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/system/Drivers/CMSIS/Device/ST/STM32F4xx/Include
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/system/Drivers/STM32F4xx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/system/Drivers/STM32F4xx_HAL_Driver/Src
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/system/Middlewares/ST/STM32_USB_Device_Library/Core/Inc      
+
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/inc
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/inc/LL
+
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../variants/STM32F4xx/F405RGT_F415RGT
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../tools/CMSIS/5.9.0/CMSIS/Core/Include
+)
+
+target_sources(SrcWrapperLib PRIVATE 
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/HAL/stm32yyxx_hal.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/HAL/stm32yyxx_hal_adc.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/HAL/stm32yyxx_hal_adc_ex.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/HAL/stm32yyxx_hal_can.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/HAL/stm32yyxx_hal_cec.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/HAL/stm32yyxx_hal_comp.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/HAL/stm32yyxx_hal_comp_ex.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/HAL/stm32yyxx_hal_cordic.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/HAL/stm32yyxx_hal_cortex.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/HAL/stm32yyxx_hal_crc.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/HAL/stm32yyxx_hal_crc_ex.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/HAL/stm32yyxx_hal_cryp.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/HAL/stm32yyxx_hal_cryp_ex.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/HAL/stm32yyxx_hal_dac.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/HAL/stm32yyxx_hal_dac_ex.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/HAL/stm32yyxx_hal_dcache.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/HAL/stm32yyxx_hal_dcmi.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/HAL/stm32yyxx_hal_dcmi_ex.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/HAL/stm32yyxx_hal_dfsdm.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/HAL/stm32yyxx_hal_dfsdm_ex.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/HAL/stm32yyxx_hal_dma.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/HAL/stm32yyxx_hal_dma2d.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/HAL/stm32yyxx_hal_dma_ex.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/HAL/stm32yyxx_hal_dsi.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/HAL/stm32yyxx_hal_dts.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/HAL/stm32yyxx_hal_eth.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/HAL/stm32yyxx_hal_eth_ex.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/HAL/stm32yyxx_hal_exti.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/HAL/stm32yyxx_hal_fdcan.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/HAL/stm32yyxx_hal_firewall.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/HAL/stm32yyxx_hal_flash.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/HAL/stm32yyxx_hal_flash_ex.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/HAL/stm32yyxx_hal_flash_ramfunc.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/HAL/stm32yyxx_hal_fmac.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/HAL/stm32yyxx_hal_fmpi2c.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/HAL/stm32yyxx_hal_fmpi2c_ex.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/HAL/stm32yyxx_hal_fmpsmbus.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/HAL/stm32yyxx_hal_fmpsmbus_ex.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/HAL/stm32yyxx_hal_gfxmmu.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/HAL/stm32yyxx_hal_gfxtim.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/HAL/stm32yyxx_hal_gpio.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/HAL/stm32yyxx_hal_gpio_ex.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/HAL/stm32yyxx_hal_gpu2d.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/HAL/stm32yyxx_hal_gtzc.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/HAL/stm32yyxx_hal_hash.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/HAL/stm32yyxx_hal_hash_ex.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/HAL/stm32yyxx_hal_hcd.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/HAL/stm32yyxx_hal_hrtim.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/HAL/stm32yyxx_hal_hsem.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/HAL/stm32yyxx_hal_i2c.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/HAL/stm32yyxx_hal_i2c_ex.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/HAL/stm32yyxx_hal_i2s.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/HAL/stm32yyxx_hal_i2s_ex.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/HAL/stm32yyxx_hal_i3c.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/HAL/stm32yyxx_hal_icache.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/HAL/stm32yyxx_hal_ipcc.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/HAL/stm32yyxx_hal_irda.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/HAL/stm32yyxx_hal_iwdg.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/HAL/stm32yyxx_hal_jpeg.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/HAL/stm32yyxx_hal_lcd.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/HAL/stm32yyxx_hal_lptim.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/HAL/stm32yyxx_hal_ltdc.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/HAL/stm32yyxx_hal_ltdc_ex.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/HAL/stm32yyxx_hal_mdf.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/HAL/stm32yyxx_hal_mdios.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/HAL/stm32yyxx_hal_mdma.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/HAL/stm32yyxx_hal_mmc.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/HAL/stm32yyxx_hal_mmc_ex.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/HAL/stm32yyxx_hal_nand.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/HAL/stm32yyxx_hal_nor.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/HAL/stm32yyxx_hal_opamp.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/HAL/stm32yyxx_hal_opamp_ex.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/HAL/stm32yyxx_hal_ospi.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/HAL/stm32yyxx_hal_otfdec.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/HAL/stm32yyxx_hal_pccard.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/HAL/stm32yyxx_hal_pcd.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/HAL/stm32yyxx_hal_pcd_ex.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/HAL/stm32yyxx_hal_pka.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/HAL/stm32yyxx_hal_pssi.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/HAL/stm32yyxx_hal_pwr.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/HAL/stm32yyxx_hal_pwr_ex.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/HAL/stm32yyxx_hal_qspi.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/HAL/stm32yyxx_hal_ramcfg.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/HAL/stm32yyxx_hal_ramecc.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/HAL/stm32yyxx_hal_rcc.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/HAL/stm32yyxx_hal_rcc_ex.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/HAL/stm32yyxx_hal_rng.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/HAL/stm32yyxx_hal_rng_ex.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/HAL/stm32yyxx_hal_rtc.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/HAL/stm32yyxx_hal_rtc_ex.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/HAL/stm32yyxx_hal_sai.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/HAL/stm32yyxx_hal_sai_ex.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/HAL/stm32yyxx_hal_sd.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/HAL/stm32yyxx_hal_sd_ex.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/HAL/stm32yyxx_hal_sdadc.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/HAL/stm32yyxx_hal_sdio.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/HAL/stm32yyxx_hal_sdram.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/HAL/stm32yyxx_hal_smartcard.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/HAL/stm32yyxx_hal_smartcard_ex.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/HAL/stm32yyxx_hal_smbus.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/HAL/stm32yyxx_hal_smbus_ex.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/HAL/stm32yyxx_hal_spdifrx.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/HAL/stm32yyxx_hal_spi.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/HAL/stm32yyxx_hal_spi_ex.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/HAL/stm32yyxx_hal_sram.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/HAL/stm32yyxx_hal_subghz.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/HAL/stm32yyxx_hal_swpmi.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/HAL/stm32yyxx_hal_tim.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/HAL/stm32yyxx_hal_tim_ex.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/HAL/stm32yyxx_hal_tsc.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/HAL/stm32yyxx_hal_uart.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/HAL/stm32yyxx_hal_uart_ex.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/HAL/stm32yyxx_hal_usart.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/HAL/stm32yyxx_hal_usart_ex.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/HAL/stm32yyxx_hal_wwdg.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/HAL/stm32yyxx_hal_xspi.c
+
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/LL/stm32yyxx_ll_adc.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/LL/stm32yyxx_ll_bdma.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/LL/stm32yyxx_ll_comp.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/LL/stm32yyxx_ll_cordic.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/LL/stm32yyxx_ll_crc.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/LL/stm32yyxx_ll_crs.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/LL/stm32yyxx_ll_dac.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/LL/stm32yyxx_ll_delayblock.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/LL/stm32yyxx_ll_dlyb.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/LL/stm32yyxx_ll_dma.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/LL/stm32yyxx_ll_dma2d.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/LL/stm32yyxx_ll_exti.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/LL/stm32yyxx_ll_fmac.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/LL/stm32yyxx_ll_fmc.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/LL/stm32yyxx_ll_fmpi2c.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/LL/stm32yyxx_ll_fsmc.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/LL/stm32yyxx_ll_gpio.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/LL/stm32yyxx_ll_hrtim.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/LL/stm32yyxx_ll_i2c.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/LL/stm32yyxx_ll_i3c.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/LL/stm32yyxx_ll_icache.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/LL/stm32yyxx_ll_lpgpio.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/LL/stm32yyxx_ll_lptim.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/LL/stm32yyxx_ll_lpuart.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/LL/stm32yyxx_ll_mdma.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/LL/stm32yyxx_ll_opamp.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/LL/stm32yyxx_ll_pka.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/LL/stm32yyxx_ll_pwr.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/LL/stm32yyxx_ll_rcc.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/LL/stm32yyxx_ll_rng.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/LL/stm32yyxx_ll_rtc.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/LL/stm32yyxx_ll_sdmmc.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/LL/stm32yyxx_ll_spi.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/LL/stm32yyxx_ll_swpmi.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/LL/stm32yyxx_ll_tim.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/LL/stm32yyxx_ll_ucpd.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/LL/stm32yyxx_ll_usart.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/LL/stm32yyxx_ll_usb.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/LL/stm32yyxx_ll_utils.c
+
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/stm32/analog.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/stm32/bootloader.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/stm32/clock.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/stm32/core_callback.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/stm32/dwt.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/stm32/hw_config.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/stm32/interrupt.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/stm32/otp.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/stm32/pinmap.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/stm32/PortNames.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/stm32/stm32_def.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/stm32/system_stm32yyxx.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/stm32/timer.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/stm32/uart.c
+
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/HardwareTimer.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/new.cpp  
+  ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../modules/Arduino_Core_STM32/libraries/SrcWrapper/src/syscalls.c
+)
+
+target_compile_options(SrcWrapperLib PRIVATE    
+    -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16 -mlittle-endian -fcommon
+    -fdata-sections -ffunction-sections    
+    $<$<COMPILE_LANGUAGE:CXX>:-fno-threadsafe-statics -fno-use-cxa-atexit -fpermissive -fno-exceptions -fno-rtti -funsigned-bitfields -fshort-enums -Winline>
+    # отладочная информация
+    $<$<CONFIG:DEBUG>:-Os -g -g3>
+)
+
+target_link_options(SrcWrapperLib PRIVATE
+    -mcpu=cortex-m4 -mthumb
+    -lc -lgcc
+    LINKER:--no-warn-rwx-segments,--cref,--gc-sections
+)

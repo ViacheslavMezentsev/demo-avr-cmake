@@ -1,0 +1,40 @@
+{
+    "env": {
+        "defaultIncludePath": [ "${config:toolchain}/avr/include/**" ],
+        "defaultDefines": [ "__GNUC__" ],
+        "compiler": "${config:toolchain}/bin/avr-gcc"
+      },    
+    "configurations": [
+        {
+            "name": "Debug",
+            "includePath": [ "${defaultIncludePath}", "${workspaceFolder}/ros_lib/**" ],
+            "defines": [ "${defaultDefines}", "DEBUG" ],
+            "intelliSenseMode": "gcc-x86",
+            "compilerPath": "${compiler}",
+            "compileCommands": "${workspaceRoot}/build/Debug/compile_commands.json",
+            "configurationProvider": "ms-vscode.cmake-tools",
+            "cStandard": "gnu17",
+            "cppStandard": "gnu++17",
+            "browse": {
+                "limitSymbolsToIncludedHeaders": true,
+                "databaseFilename": "${workspaceFolder}/.vscode/browse.vc.db"
+            }
+        },
+        {
+            "name": "Release",
+            "includePath": [ "${defaultIncludePath}", "${workspaceFolder}/ros_lib/**" ],
+            "defines": [ "${defaultDefines}" ],
+            "intelliSenseMode": "gcc-x86",
+            "compilerPath": "${compiler}",
+            "compileCommands": "${workspaceRoot}/build/Release/compile_commands.json",
+            "configurationProvider": "ms-vscode.cmake-tools",
+            "cStandard": "gnu17",
+            "cppStandard": "gnu++17",
+            "browse": {
+                "limitSymbolsToIncludedHeaders": true,
+                "databaseFilename": "${workspaceFolder}/.vscode/browse.vc.db"
+            }            
+        }
+    ],
+    "version": 4
+}

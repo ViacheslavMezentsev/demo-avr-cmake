@@ -34,3 +34,6 @@
 [submodule "modules/PinChangeInterrupt"]
 	path = modules/PinChangeInterrupt
 	url = https://github.com/NicoHood/PinChangeInterrupt
+[submodule "modules/Arduino_Core_STM32"]
+	path = modules/Arduino_Core_STM32
+	url = https://github.com/stm32duino/Arduino_Core_STM32
