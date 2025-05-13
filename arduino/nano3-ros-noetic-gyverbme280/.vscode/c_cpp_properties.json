@@ -1,8 +1,8 @@
 {
     "env": {
-        "defaultIncludePath": [ "${config:toolchain}/avr/include/**" ],
+        "defaultIncludePath": [ "${config.toolchain}/avr/include/**" ],
         "defaultDefines": [ "__GNUC__" ],
-        "compiler": "${config:toolchain}/bin/avr-gcc"
+        "compiler": "${config.toolchain}/bin/avr-gcc"
       },    
     "configurations": [
         {

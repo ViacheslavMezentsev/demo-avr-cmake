@@ -12,39 +12,39 @@ extern void USART_Init();
 /**
  * @brief   Выполняет установку бита регистра в памяти.
  * 
- * @param reg   адрес регистра
+ * @param addr  относительный адрес регистра ввода/вывода
  * @param pin   номер бита
  * 
  */
-void SetBit( volatile uint8_t * reg, uint8_t pin )
+void SetBit( uint16_t addr, uint8_t pin )
 {
-    reg[0] |= _BV( pin );
+    _SFR_IO8( addr ) |= _BV( pin );
 }
 
 
 /**
  * @brief   Выполняет сброс бита регистра в памяти.
  * 
- * @param reg   адрес регистра
+ * @param addr  относительный адрес регистра ввода/вывода
  * @param pin   номер бита
  * 
  */
-void ClrBit( volatile uint8_t * reg, uint8_t pin )
+void ClrBit( uint16_t addr, uint8_t pin )
 {
-    reg[0] &= ~_BV( pin );
+    _SFR_IO8( addr ) &= ~_BV( pin );
 }
 
 
 /**
  * @brief   Выполняет инверсию бита регистра в памяти.
  * 
- * @param reg   адрес регистра
+ * @param addr  относительный адрес регистра ввода/вывода
  * @param pin   номер бита
  * 
  */
-void ToggleBit( volatile uint8_t * reg, uint8_t pin )
+void ToggleBit( uint16_t addr, uint8_t pin )
 {
-    reg[0] ^= _BV( pin );
+    _SFR_IO8( addr ) ^= _BV( pin );
 }
 
 
@@ -60,7 +60,7 @@ void setup()
         USART_Init();
 
         // Настраиваем порт.
-        SetBit( & DDRB, PB5 );
+        SetBit( _SFR_IO_ADDR( DDRB ), PB5 );
     }
 }
 
@@ -72,7 +72,7 @@ void setup()
 void loop()
 {
     // Мигаем светодиодом.
-    ToggleBit( & PORTB, PB5 );
+    ToggleBit( _SFR_IO_ADDR( PORTB ), PB5 );
 
     // Ожидаем выполнение команды.
     _NOP();

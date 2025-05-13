@@ -24,7 +24,7 @@ using namespace std::chrono_literals;
  */
 int main()
 {
-    // Создаём новый UART объект и настраиваем его на скорость 115200.
+    // Создаём новый UART объект и настраиваем скорость обмена данными.
     Uart0::connect<GpioOutputD1::Txd, GpioInputD0::Rxd>();
     Uart0::initialize<SystemClock, 19200_Bd>();
 

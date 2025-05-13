@@ -13,6 +13,11 @@
 #include <avr/wdt.h>
 #include <chrono>
 
+#define SETBIT(x,b)     ( (x) |= _BV(b) )
+#define SETBITS(x,b)    ( (x) |= (b) )
+#define CLRBIT(x,b)     ( (x) &= ~_BV(b) )
+#define TOGGLE(x,b)     ( (x) ^= _BV(b) )
+#define CHECKBIT(x,b)   ( (x) & _BV(b) )
 
 static void app_hw_init()
 {
@@ -23,37 +28,41 @@ static void app_hw_init()
     wdt_reset();
 
     // Clear WDRF in MCUSR.
-    MCUSR &= ~(1U << WDRF);
+    CLRBIT( MCUSR, WDRF );
 
     // Write logical one to WDCE and WDE.
     // Keep the old prescaler setting to prevent unintentional time-out.
-    WDTCSR |= (1U << WDCE) | (1U << WDE);
+    SETBITS( WDTCSR, _BV( WDCE ) | _BV( WDE ) );
 
     // Turn off the WDT.
     WDTCSR = 0x00;
 
     // We will now initialize PORTB.5 to be used as an LED driver port.
     // Set PORTB.5 value to low.
-    PORTB &= ~(1U << PORTB5);
+    CLRBIT( PORTB, PORTB5 );
 
     // Set PORTB.5 direction to output.
-    DDRB |= (1U << DDB5);
+    SETBIT( DDRB, DDB5 );
 
     // We will now initialize the TIMER0 clock and interrupt.
     // Clear the TIMER0 overflow flag.
-    TIFR0 = static_cast<std::uint8_t>(1U << TOV0);
+    TIFR0 = _BV( TOV0 );
 
     // Enable the TIMER0 overflow interrupt.
-    TIMSK0 = static_cast<std::uint8_t>(1U << TOIE0);
+    TIMSK0 = _BV( TOIE0 );
 
     // Set the TIMER0 clock source to f_osc/8 = 2MHz and begin counting.
-    TCCR0B = static_cast<std::uint8_t>(1U << CS01);
+    TCCR0B = _BV( CS01 );
 
     // Enable all interrupts.
     sei();
 }
 
 
+/**
+ * @brief   Точка входа.
+ * 
+ */
 int main()
 {
     // Initialize the application hardware. This includes WDT, PORTB.5 and TIMER0.
@@ -64,7 +73,7 @@ int main()
         using namespace std::chrono;
 
         // Toggle the LED on portb.5.
-        PINB |= _BV( PB5 );
+        SETBIT( PINB, PB5 );
 
         // Make use of <chrono> to insert a 1s delay (i.e., 1000 milliseconds).
         const auto start = high_resolution_clock::now();

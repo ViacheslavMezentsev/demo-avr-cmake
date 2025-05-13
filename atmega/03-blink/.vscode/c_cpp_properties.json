@@ -1,17 +1,19 @@
 {
-    "env": {
+    "env":
+    {
         "defaultIncludePath": [
-            "${env:USERPROFILE}/scoop/apps/avr-gcc/current/avr/include/**"
+            "${config:toolchain}/avr/include/**"
         ],
         "defaultDefines": [ "__GNUC__" ],
-        "compiler": "${env:USERPROFILE}/scoop/apps/avr-gcc/current/bin/avr-gcc.exe"
-      },    
-    "configurations": [
+        "compiler": "${config:toolchain}/bin/avr-gcc.exe"
+    },
+    "configurations":
+    [
         {
             "name": "Debug",
             "includePath": [ "${defaultIncludePath}" ],
             "defines": [ "${defaultDefines}", "DEBUG" ],
-            "intelliSenseMode": "gcc-x86",
+            "intelliSenseMode": "gcc-arm",
             "compilerPath": "${compiler}",
             "configurationProvider": "ms-vscode.cmake-tools",
             "cStandard": "gnu17",
@@ -25,7 +27,7 @@
             "name": "Release",
             "includePath": [ "${defaultIncludePath}" ],
             "defines": [ "${defaultDefines}" ],
-            "intelliSenseMode": "gcc-x86",
+            "intelliSenseMode": "gcc-arm",
             "compilerPath": "${compiler}",
             "configurationProvider": "ms-vscode.cmake-tools",
             "cStandard": "gnu17",

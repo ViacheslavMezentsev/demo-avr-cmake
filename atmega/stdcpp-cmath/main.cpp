@@ -101,6 +101,10 @@ auto cyl_bessel_j( const std::uint_fast8_t n, const FloatingPointType& x ) noexc
 }
 
 
+/**
+ * @brief   Точка входа.
+ * 
+ */
 auto main() -> int
 {
     // Настройка USART.

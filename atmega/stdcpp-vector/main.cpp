@@ -4,6 +4,10 @@
 
 extern void USART_Init();
 
+/**
+ * @brief   Точка входа.
+ * 
+ */
 int main()
 {
     USART_Init();

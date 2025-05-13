@@ -1,0 +1,74 @@
+{
+    "env": {
+        "defaultIncludePath": [ "${config:toolchain}/arm-none-eabi/include/**" ],
+        "defaultDefines": [ "__GNUC__" ],
+        "compiler": "${config:toolchain}/bin/arm-none-eabi-gcc"
+      },    
+    "configurations": [
+        {
+            "name": "Debug",
+            "includePath": [ "${defaultIncludePath}", "${workspaceFolder}/ros_lib/**" ],
+            "defines": [ "${defaultDefines}", "DEBUG",
+                "STM32F4xx",
+                "STM32F401xC",
+                "USBCON",
+                "USBD_VID=0x0483",
+                "USBD_PID=0x5740",
+                "HAL_PCD_MODULE_ENABLED",
+                "USBD_USE_CDC",
+                "HAL_UART_MODULE_ENABLED",
+                "ARDUINO=10607",
+                "ARDUINO_BLACKPILL_F401CC",
+                "ARDUINO_ARCH_STM32",
+                "BOARD_NAME=\"BLACKPILL_F401CC\"",
+                "VARIANT_H=\"variant_BLACKPILL_F401Cx.h\"",
+                "VECT_TAB_OFFSET=0x0",
+                "USE_HAL_DRIVER",
+                "USE_FULL_LL_DRIVER"
+            ],
+            "intelliSenseMode": "gcc-arm",
+            "compilerPath": "${compiler}",
+            "compileCommands": "${workspaceRoot}/build/Debug/compile_commands.json",
+            "configurationProvider": "ms-vscode.cmake-tools",
+            "cStandard": "gnu17",
+            "cppStandard": "gnu++17",
+            "browse": {
+                "limitSymbolsToIncludedHeaders": true,
+                "databaseFilename": "${workspaceFolder}/.vscode/browse.vc.db"
+            }
+        },
+        {
+            "name": "Release",
+            "includePath": [ "${defaultIncludePath}", "${workspaceFolder}/ros_lib/**" ],
+            "defines": [ "${defaultDefines}",
+                "STM32F4xx",
+                "STM32F401xx",
+                "USBCON",
+                "USBD_VID=0x0483",
+                "USBD_PID=0x5740",
+                "HAL_PCD_MODULE_ENABLED",
+                "USBD_USE_CDC",
+                "HAL_UART_MODULE_ENABLED",
+                "ARDUINO=10607",
+                "ARDUINO_BLACKPILL_F401CC",
+                "ARDUINO_ARCH_STM32",
+                "BOARD_NAME=\"BLACKPILL_F401CC\"",
+                "VARIANT_H=\"variant_BLACKPILL_F401Cx.h\"",
+                "VECT_TAB_OFFSET=0x0",
+                "USE_HAL_DRIVER",
+                "USE_FULL_LL_DRIVER"
+            ],
+            "intelliSenseMode": "gcc-arm",
+            "compilerPath": "${compiler}",
+            "compileCommands": "${workspaceRoot}/build/Release/compile_commands.json",
+            "configurationProvider": "ms-vscode.cmake-tools",
+            "cStandard": "gnu17",
+            "cppStandard": "gnu++17",
+            "browse": {
+                "limitSymbolsToIncludedHeaders": true,
+                "databaseFilename": "${workspaceFolder}/.vscode/browse.vc.db"
+            }            
+        }
+    ],
+    "version": 4
+}

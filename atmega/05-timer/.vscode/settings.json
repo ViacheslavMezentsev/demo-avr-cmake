@@ -7,6 +7,8 @@
         "CMAKE_EXPORT_COMPILE_COMMANDS": "on"
     },
     // Настройки проекта.
+    "toolchain": "${env:USERPROFILE}/avr-gcc-10.1.0",
+    //"toolchain": "${env:HOME}/avr-gcc-10.1.0",
     "executable": "${command:cmake.buildDirectory}/${workspaceFolderBasename}.elf",
     "device": "m328p",
     "comport": "COM37",

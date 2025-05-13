@@ -1,10 +1,10 @@
 {
     "env": {
         "defaultIncludePath": [
-            "${env:USERPROFILE}/scoop/apps/avr-gcc/current/avr/include/**"
+            "${config:toolchain}/avr/include/**"
         ],
         "defaultDefines": [ "__GNUC__" ],
-        "compiler": "${env:USERPROFILE}/scoop/apps/avr-gcc/current/bin/avr-gcc.exe"
+        "compiler": "${config:toolchain}/bin/avr-gcc.exe"
       },    
     "configurations": [
         {

@@ -2,18 +2,14 @@
     "cSpell.ignoreRegExpList": ["\\b[0-9A-Z_]+\\b"],
     "cmake.generator": "Ninja",
     "cmake.buildDirectory" : "${workspaceRoot}/build/${buildType}",
-    "cmake.configureEnvironment":
-    {
-        "CMAKE_EXPORT_COMPILE_COMMANDS": "on"
-    },
+    "cmake.configureEnvironment": { "CMAKE_EXPORT_COMPILE_COMMANDS": "on" },
+    // Настройки проекта.
+    //"toolchain": "${env:USERPROFILE}/avr-gcc-10.1.0",
+    "toolchain": "${env:USERPROFILE}/avr-gcc-14.1.0",
+    //"toolchain": "${env:HOME}/avr-gcc-10.1.0",
     // Настройки проекта.
     "executable": "${command:cmake.buildDirectory}/${workspaceFolderBasename}.elf",
     "device": "m328p",
     "comport": "COM37",
-    "combaud": "57600",
-    "files.associations": {
-        "Makefile": "makefile",
-        "cstdio": "cpp",
-        "cstddef": "cpp"
-    }
+    "combaud": "57600"
 }

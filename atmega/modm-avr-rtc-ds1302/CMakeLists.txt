@@ -17,19 +17,19 @@ add_executable(${PROJECT_NAME})
 add_subdirectory(stdcpp)
 
 target_sources(${PROJECT_NAME} PRIVATE
-    ${CMAKE_CURRENT_SOURCE_DIR}/modm/ext/printf/printf.c
+    modm/ext/printf/printf.c
 
-    ${CMAKE_CURRENT_SOURCE_DIR}/modm/src/modm/board/board_fuses.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/modm/src/modm/board/board_serial.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/modm/src/modm/architecture/driver/atomic/flag.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/modm/src/modm/io/iostream.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/modm/src/modm/io/iostream_printf.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/modm/src/modm/math/utils/avr/sqrt32.sx
-    ${CMAKE_CURRENT_SOURCE_DIR}/modm/src/modm/math/utils/bit_operation.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/modm/src/modm/platform/clock/clock.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/modm/src/modm/platform/core/assert.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/modm/src/modm/platform/uart/uart0_rx.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/modm/src/modm/platform/uart/uart0_tx.cpp
+    modm/src/modm/board/board_fuses.cpp
+    modm/src/modm/board/board_serial.cpp
+    modm/src/modm/architecture/driver/atomic/flag.cpp
+    modm/src/modm/io/iostream.cpp
+    modm/src/modm/io/iostream_printf.cpp
+    modm/src/modm/math/utils/avr/sqrt32.sx
+    modm/src/modm/math/utils/bit_operation.cpp
+    modm/src/modm/platform/clock/clock.cpp
+    modm/src/modm/platform/core/assert.cpp
+    modm/src/modm/platform/uart/uart0_rx.cpp
+    modm/src/modm/platform/uart/uart0_tx.cpp
 
     main.cpp
 )
@@ -38,8 +38,8 @@ target_link_libraries(${PROJECT_NAME} m)
 
 target_include_directories(${PROJECT_NAME} PRIVATE
     ${TOOLCHAIN_INC_PATH}
-    ${CMAKE_CURRENT_SOURCE_DIR}/modm/ext
-    ${CMAKE_CURRENT_SOURCE_DIR}/modm/src
+    modm/ext
+    modm/src
 )
 
 target_compile_definitions(${PROJECT_NAME} PRIVATE F_CPU=16000000UL)

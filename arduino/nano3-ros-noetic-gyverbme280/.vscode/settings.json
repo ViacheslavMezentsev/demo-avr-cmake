@@ -5,10 +5,11 @@
     "cmake.configureEnvironment": { 
         "CMAKE_EXPORT_COMPILE_COMMANDS": "on",
         "CMAKE_USER_HOME": "${userHome}",
-        "AVR_TOOLCHAIN_PATH": "${userHome}/avr-gcc-10.1.0-x64-linux" },
+        "AVR_TOOLCHAIN_PATH": "${userHome}/avr-gcc-10.1.0" },
     // Настройки проекта.
     "executable": "${command:cmake.buildDirectory}/${workspaceFolderBasename}.elf",
-    "toolchain": "${env:HOME}/avr-gcc-10.1.0-x64-linux",
+    //"toolchain": "${env:HOME}/avr-gcc-10.1.0",
+    "toolchain": "${env:USERPROFILE}/avr-gcc-10.1.0",
     "device": "m328p",
     //"comport": "COM37",
     "comport": "/dev/ttyUSB0",
