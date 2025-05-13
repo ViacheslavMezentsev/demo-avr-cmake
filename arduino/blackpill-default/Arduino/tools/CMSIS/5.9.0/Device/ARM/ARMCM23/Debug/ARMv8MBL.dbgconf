@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 // <<< Use Configuration Wizard in Context Menu >>>
 
 // <e> Fixed Debug Authentication
@@ -10,4 +11,18 @@ DAuthConfig = 0xF;
 
 // </e>
 
+=======
+// <<< Use Configuration Wizard in Context Menu >>>
+
+// <e> Fixed Debug Authentication
+// <i> Use a fixed value for Debug Authentication. Only secure debug authentication configurable.
+DAuthFixed  = 0x1;
+
+//   <q.2> Secure Invasive Debug
+//   <q.3> Secure Non-Invasive Debug
+DAuthConfig = 0xF;
+
+// </e>
+
+>>>>>>> 5881ee9d9a49cdc272890e0007b9baca97e186f3
 // <<< end of configuration section >>>
