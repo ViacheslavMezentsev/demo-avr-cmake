@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 ; Linker Control File (scatter-loading)
 ;
 
@@ -21,27 +20,3 @@ DSCR +0                ; Device Description
     FlashDev.o
   }
 }
-=======
-; Linker Control File (scatter-loading)
-;
-
-PRG 0 PI               ; Programming Functions
-{
-  PrgCode +0           ; Code
-  {
-    * (+RO)
-  }
-  PrgData +0           ; Data
-  {
-    * (+RW,+ZI)
-  }
-}
-
-DSCR +0                ; Device Description
-{
-  DevDscr +0
-  {
-    FlashDev.o
-  }
-}
->>>>>>> 5881ee9d9a49cdc272890e0007b9baca97e186f3

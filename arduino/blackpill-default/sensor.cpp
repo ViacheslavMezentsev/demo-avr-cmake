@@ -78,9 +78,6 @@ void setup()
     Serial.begin( 9600 ); 
     Serial.println( "Scanning I2C bus..." );
     Serial.println( "   0  1  2  3  4  5  6  7  8  9  A  B  C  D  E  F" );
-
-    i2cdetect();
-
 /*
     // Magnetic Declination is the correction applied according to your present location
     // in order to get True North from Magnetic North, it varies from place to place.

@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 /*
  * rosserial Publisher Example
  * Prints "hello world!"
@@ -27,33 +26,3 @@ void loop()
   nh.spinOnce();
   delay(1000);
 }
-=======
-/*
- * rosserial Publisher Example
- * Prints "hello world!"
- */
-
-#include <ros.h>
-#include <std_msgs/String.h>
-
-ros::NodeHandle  nh;
-
-std_msgs::String str_msg;
-ros::Publisher chatter("chatter", &str_msg);
-
-char hello[13] = "hello world!";
-
-void setup()
-{
-  nh.initNode();
-  nh.advertise(chatter);
-}
-
-void loop()
-{
-  str_msg.data = hello;
-  chatter.publish( &str_msg );
-  nh.spinOnce();
-  delay(1000);
-}
->>>>>>> 5881ee9d9a49cdc272890e0007b9baca97e186f3

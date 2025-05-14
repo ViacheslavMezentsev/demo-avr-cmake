@@ -1,43 +1,3 @@
-<<<<<<< HEAD
-{
-    "recommendations":
-    [
-        "ms-vscode.cpptools",
-        "ms-vscode.cmake-tools",
-        "ms-vscode.makefile-tools",
-        "ms-vscode.hexeditor",
-        "keroc.hex-fmt",
-        "VisualStudioExptTeam.vscodeintellicode",
-        "marus25.cortex-debug",
-        "marus25.cortex-debug-dp-stm32f1",
-        "marus25.cortex-debug-dp-stm32f4",
-        "trond-snekvik.gnu-mapfiles",
-        "yzhang.markdown-all-in-one",
-        "streetsidesoftware.code-spell-checker",
-        "streetsidesoftware.code-spell-checker-russian",
-        "dionmunk.vscode-notes",
-        "gruntfuggly.todo-tree",
-        "rioj7.command-variable",
-        "mcu-debug.memory-view",
-        "webfreak.debug",
-        "christian-kohler.path-intellisense",
-        "eclipse-cdt.peripheral-inspector",
-        "mcu-debug.peripheral-viewer",
-        "donjayamanne.python-extension-pack",
-        "magicstack.MagicPython",
-        "ms-iot.vscode-ros",
-        "ms-vscode.vscode-serial-monitor",
-        "dsebastien.vscode-python-pack",
-        "jeff-hykin.better-cpp-syntax",
-        "aaron-bond.better-comments",
-        "alefragnani.Bookmarks",
-        "PKief.material-icon-theme",
-        "emmanuelbeziat.vscode-great-icons",
-        "johnpapa.vscode-peacock",
-        "alefragnani.project-manager",
-        "wayou.vscode-todo-highlight"
-    ]
-=======
 {
     "recommendations": [
         "ms-vscode.cpptools",
@@ -75,5 +35,4 @@
         "alefragnani.project-manager",
         "wayou.vscode-todo-highlight"
     ]
->>>>>>> 5881ee9d9a49cdc272890e0007b9baca97e186f3
 }

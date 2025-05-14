@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 include PythonWrapper_README.md
 recursive-include Include *.h 
 recursive-include PrivateInclude *.h 
@@ -6,12 +5,3 @@ recursive-include PythonWrapper/cmsisdsp_pkg/src *.h
 include cmsisdsp/sdf/scheduler/templates/*
 include Source/DistanceFunctions/arm_boolean_distance_template.h
 
-=======
-include PythonWrapper_README.md
-recursive-include Include *.h 
-recursive-include PrivateInclude *.h 
-recursive-include PythonWrapper/cmsisdsp_pkg/src *.h 
-include cmsisdsp/sdf/scheduler/templates/*
-include Source/DistanceFunctions/arm_boolean_distance_template.h
-
->>>>>>> 5881ee9d9a49cdc272890e0007b9baca97e186f3

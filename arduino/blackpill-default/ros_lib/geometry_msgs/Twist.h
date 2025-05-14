@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 #ifndef _ROS_geometry_msgs_Twist_h
 #define _ROS_geometry_msgs_Twist_h
 
@@ -48,54 +47,3 @@ namespace geometry_msgs
 
 }
 #endif
-=======
-#ifndef _ROS_geometry_msgs_Twist_h
-#define _ROS_geometry_msgs_Twist_h
-
-#include <stdint.h>
-#include <string.h>
-#include <stdlib.h>
-#include "ros/msg.h"
-#include "geometry_msgs/Vector3.h"
-
-namespace geometry_msgs
-{
-
-  class Twist : public ros::Msg
-  {
-    public:
-      typedef geometry_msgs::Vector3 _linear_type;
-      _linear_type linear;
-      typedef geometry_msgs::Vector3 _angular_type;
-      _angular_type angular;
-
-    Twist():
-      linear(),
-      angular()
-    {
-    }
-
-    virtual int serialize(unsigned char *outbuffer) const override
-    {
-      int offset = 0;
-      offset += this->linear.serialize(outbuffer + offset);
-      offset += this->angular.serialize(outbuffer + offset);
-      return offset;
-    }
-
-    virtual int deserialize(unsigned char *inbuffer) override
-    {
-      int offset = 0;
-      offset += this->linear.deserialize(inbuffer + offset);
-      offset += this->angular.deserialize(inbuffer + offset);
-     return offset;
-    }
-
-    virtual const char * getType() override { return "geometry_msgs/Twist"; };
-    virtual const char * getMD5() override { return "9f195f881246fdfa2798d1d3eebca84a"; };
-
-  };
-
-}
-#endif
->>>>>>> 5881ee9d9a49cdc272890e0007b9baca97e186f3
