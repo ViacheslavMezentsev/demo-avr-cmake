@@ -1,6 +1,9 @@
 {
     "env": {
-        "defaultIncludePath": [ "${config:toolchain}/arm-none-eabi/include/**" ],
+        "defaultIncludePath": [
+            "${config:toolchain}/arm-none-eabi/include",
+            "${config:toolchain}/arm-none-eabi/include/c++/**"
+        ],
         "defaultDefines": [ "__GNUC__" ],
         "compiler": "${config:toolchain}/bin/arm-none-eabi-gcc"
       },    

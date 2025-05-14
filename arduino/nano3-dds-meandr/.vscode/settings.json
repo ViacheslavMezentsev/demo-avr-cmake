@@ -2,13 +2,11 @@
     "cSpell.ignoreRegExpList": ["\\b[0-9A-Z_]+\\b"],
     "cmake.generator": "Ninja",
     "cmake.buildDirectory" : "${workspaceRoot}/build/${buildType}",
-    "cmake.configureEnvironment": { 
-        "CMAKE_EXPORT_COMPILE_COMMANDS": "on",
-        "CMAKE_USER_HOME": "${userHome}",
-        "AVR_TOOLCHAIN_PATH": "${userHome}/avr-gcc-10.1.0-x64-linux" },
+    "cmake.configureEnvironment": { "CMAKE_EXPORT_COMPILE_COMMANDS": "on", "CMAKE_USER_HOME": "${userHome}" },
     // Настройки проекта.
+    "toolchain": "${env:USERPROFILE}/avr-gcc-10.1.0",
+    //"toolchain": "${env:HOME}/avr-gcc-10.1.0",
     "executable": "${command:cmake.buildDirectory}/${workspaceFolderBasename}.elf",
-    "toolchain": "${env:HOME}/avr-gcc-10.1.0-x64-linux",
     "device": "m328p",
     //"comport": "COM37",
     "comport": "/dev/ttyUSB0",
