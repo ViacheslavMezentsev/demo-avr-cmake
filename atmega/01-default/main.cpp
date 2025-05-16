@@ -1,7 +1,7 @@
 #include <util/delay.h>
 #include <avr/io.h>
 
-volatile uint8_t count {0};
+volatile uint8_t count { 0 };
 
 /**
  * @brief   Выполняет настройку.
@@ -33,7 +33,7 @@ int main()
 {
     setup();
 
-    while (1)
+    while ( 1 )
     {
         loop();
     }
